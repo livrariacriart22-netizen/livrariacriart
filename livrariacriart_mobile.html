@@ -1,0 +1,486 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
+:root{--pk:#f542a1;--pk2:#fce4f3;--pk3:#c2186b;--pk4:#fdf0f8}
+
+.phone{width:360px;margin:0 auto;background:#fff;border-radius:36px;border:3px solid #222;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;min-height:700px}
+.notch{background:#222;height:28px;display:flex;align-items:center;justify-content:center;border-radius:0 0 14px 14px;width:110px;margin:0 auto}
+.notch-dot{width:8px;height:8px;background:#444;border-radius:50%}
+.screen{overflow-y:auto;max-height:640px;background:#fff}
+.screen::-webkit-scrollbar{display:none}
+
+.mob-nav{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fff;border-bottom:1.5px solid #f9a8d4;position:sticky;top:0;z-index:10}
+.mob-logo{font-size:13px;font-weight:700;color:var(--pk)}
+.mob-logo-sub{font-size:8px;color:#aaa;letter-spacing:1px}
+.mob-menu{display:flex;gap:8px;align-items:center}
+.mob-icon{width:30px;height:30px;border-radius:50%;background:var(--pk2);border:1px solid #f9a8d4;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer}
+.mob-btn{background:var(--pk);color:#fff;border:none;border-radius:16px;padding:6px 12px;font-size:10px;cursor:pointer;font-weight:600}
+
+.mob-hero{background:#fff;padding:16px 14px 12px;text-align:center;position:relative;overflow:hidden}
+.bf{position:absolute;font-size:16px;animation:fl 3s ease-in-out infinite}
+.bf1{top:6px;left:6%}.bf2{top:14px;left:32%;animation-delay:.5s}.bf3{top:5px;right:18%;animation-delay:1s}.bf4{top:18px;right:5%;animation-delay:.3s}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-7px) rotate(5deg)}}
+.frase-mob{background:var(--pk2);border-left:3px solid var(--pk);padding:8px 12px;border-radius:0 8px 8px 0;font-size:10px;color:var(--pk3);font-style:italic;line-height:1.5;margin-bottom:12px;text-align:left}
+.mob-h1{font-size:18px;font-weight:700;color:#222;line-height:1.3;margin-bottom:6px}
+.mob-h1 span{color:var(--pk)}
+.mob-p{font-size:11px;color:#888;margin-bottom:12px;line-height:1.5}
+.mob-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.mbtn-p{background:var(--pk);color:#fff;border:none;border-radius:20px;padding:9px 18px;font-size:11px;cursor:pointer;font-weight:600}
+.mbtn-s{background:#fff;color:var(--pk);border:1.5px solid var(--pk);border-radius:20px;padding:7px 14px;font-size:11px;cursor:pointer;font-weight:600}
+.surpresa-res{display:none;background:var(--pk2);border-radius:10px;padding:10px;font-size:11px;color:var(--pk3);border:1px solid #f9a8d4;margin-top:8px}
+
+.mob-stats{display:flex;justify-content:space-around;padding:10px 14px;background:var(--pk2)}
+.mstat{text-align:center}
+.mstat-n{font-size:16px;font-weight:700;color:var(--pk)}
+.mstat-l{font-size:9px;color:#888;margin-top:1px}
+
+.msec{padding:14px 14px}
+.msec-title{font-size:14px;font-weight:700;color:#222;margin-bottom:3px}
+.msec-title span{color:var(--pk)}
+.msec-sub{font-size:10px;color:#888;margin-bottom:12px}
+
+.estante{display:flex;gap:4px;align-items:flex-end;padding:0 14px 0;border-bottom:4px solid var(--pk);overflow-x:auto;padding-bottom:0}
+.estante::-webkit-scrollbar{display:none}
+.bk-e{border-radius:4px 4px 0 0;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;font-size:8px;font-weight:700;color:#fff;letter-spacing:.5px;cursor:pointer;transition:transform .25s;flex-shrink:0}
+.bk-e:hover{transform:translateY(-8px)}
+
+.feelings{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.feel{background:var(--pk4);border:1px solid #f9a8d4;border-radius:12px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .2s}
+.feel.active{border-color:var(--pk);background:var(--pk2)}
+.feel-em{font-size:20px;margin-bottom:4px}
+.feel-tx{font-size:10px;font-weight:600;color:#333}
+.feel-res{display:none;background:var(--pk2);border-radius:10px;padding:10px;margin-top:10px;border:1px solid #f9a8d4}
+.feel-res.show{display:block}
+.feel-tit{font-size:11px;font-weight:700;color:var(--pk3);margin-bottom:6px}
+.mini-bks{display:flex;gap:6px;flex-wrap:wrap}
+.mbk{background:#fff;border-radius:8px;padding:5px 9px;font-size:10px;color:var(--pk3);font-weight:600;border:1px solid #f9a8d4}
+
+.fases{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fase-c{background:#fff;border:1px solid #f9a8d4;border-radius:12px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .2s}
+.fase-c.active{border-color:var(--pk);background:var(--pk2)}
+.fase-em{font-size:18px;margin-bottom:4px}
+.fase-tx{font-size:10px;font-weight:600;color:#333}
+.fase-res{display:none;background:#fff;border-radius:10px;padding:10px;margin-top:10px;border:1px solid #f9a8d4}
+.fase-res.show{display:block}
+
+.quiz-box{background:#0d0520;border-radius:14px;padding:14px}
+.quiz-q-mob{font-size:12px;color:#e4b8d4;font-weight:600;margin-bottom:10px}
+.quiz-opts-mob{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.quiz-opt-mob{background:rgba(245,66,161,0.15);border:1px solid rgba(245,66,161,0.3);border-radius:8px;padding:8px 8px;font-size:10px;color:#f9a8d4;cursor:pointer;text-align:left}
+.quiz-opt-mob:hover{background:rgba(245,66,161,0.3)}
+.quiz-res-mob{display:none;background:rgba(245,66,161,0.2);border-radius:10px;padding:10px;margin-top:10px}
+.quiz-res-mob.show{display:block}
+.quiz-res-mob h4{font-size:11px;color:#f9a8d4;font-weight:700;margin-bottom:6px}
+.quiz-res-mob p{font-size:10px;color:#c896b0;line-height:1.5}
+.qprog{display:flex;gap:4px;margin-bottom:10px}
+.qp-mob{height:3px;flex:1;border-radius:2px;background:rgba(245,66,161,0.2)}
+.qp-mob.done{background:var(--pk)}
+
+.proib{background:#0d0520;padding:14px}
+.proib-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.proib-c{background:rgba(245,66,161,0.1);border:1px solid rgba(245,66,161,0.2);border-radius:12px;padding:10px;cursor:pointer}
+.proib-em{font-size:20px;margin-bottom:6px}
+.proib-t{font-size:10px;font-weight:700;color:#f9a8d4;line-height:1.3;margin-bottom:3px}
+.proib-d{font-size:9px;color:#9a7090;line-height:1.3}
+.proib-b{display:inline-block;background:var(--pk);color:#fff;font-size:8px;padding:2px 6px;border-radius:8px;margin-top:4px}
+
+.cantinho-mob{background:linear-gradient(160deg,#fff5f9,#ffe8f4,#fff9f0);padding:14px;position:relative;overflow:hidden}
+.nuv{position:absolute;font-size:24px;opacity:.2;animation:nv 6s ease-in-out infinite}
+.nu1{top:5px;left:5%}.nu2{top:2px;right:10%;animation-delay:2s}
+@keyframes nv{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
+.cant-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative;z-index:1}
+.cant-c{background:rgba(255,255,255,.85);border:1px solid #f9c8df;border-radius:12px;padding:10px;text-align:center}
+.cant-ic{font-size:20px;margin-bottom:4px}
+.cant-nm{font-size:10px;font-weight:700;color:var(--pk3);margin-bottom:2px}
+.cant-ds{font-size:9px;color:#c2186b;line-height:1.3}
+
+.desafio-tabs-mob{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.dtab-mob{background:#fff;border:1px solid #f9a8d4;border-radius:16px;padding:5px 10px;font-size:9px;font-weight:700;color:#888;cursor:pointer}
+.dtab-mob.active{background:var(--pk);color:#fff;border-color:var(--pk)}
+.dias-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.dia-c{background:var(--pk4);border-radius:8px;padding:8px;text-align:center;border:1px solid #f9a8d4}
+.dia-n{font-size:14px;font-weight:700;color:var(--pk)}
+.dia-l{font-size:8px;color:#888;line-height:1.3;margin-top:2px}
+
+.depo-grid-mob{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.depo-mob{background:var(--pk4);border-radius:10px;padding:10px;border-left:3px solid var(--pk)}
+.depo-txt{font-size:10px;color:#444;line-height:1.5;font-style:italic;margin-bottom:4px}
+.depo-liv{font-size:9px;color:var(--pk);font-weight:700}
+.depo-form-mob{background:var(--pk2);border-radius:10px;padding:12px;border:1px dashed #f9a8d4}
+.depo-form-mob h4{font-size:11px;font-weight:700;color:var(--pk3);margin-bottom:8px}
+.depo-form-mob textarea{width:100%;border:1px solid #f9a8d4;border-radius:8px;padding:8px;font-size:10px;color:#333;resize:none;background:#fff;outline:none;font-family:inherit}
+.depo-btn-mob{background:var(--pk);color:#fff;border:none;border-radius:16px;padding:7px 14px;font-size:10px;cursor:pointer;font-weight:600;margin-top:6px}
+
+.receita-mob{background:#0d0520;padding:14px}
+.sintomas-mob{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.sint-mob{background:rgba(245,66,161,0.15);border:1px solid rgba(245,66,161,0.25);border-radius:16px;padding:5px 10px;font-size:9px;color:#f9a8d4;cursor:pointer}
+.sint-mob.active{background:var(--pk);color:#fff;border-color:var(--pk)}
+.rec-card-mob{display:none;background:rgba(255,255,255,.05);border:1px solid rgba(245,66,161,.2);border-radius:12px;padding:12px}
+.rec-card-mob.show{display:block}
+.rc-h{font-size:11px;font-weight:700;color:#f9a8d4;margin-bottom:8px}
+.rc-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:6px}
+.rc-pill{background:var(--pk);color:#fff;border-radius:16px;padding:3px 8px;font-size:9px;font-weight:700;flex-shrink:0}
+.rc-txt{font-size:10px;color:#c896b0;line-height:1.4}
+
+.sons-mob{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.som-mob{background:rgba(245,66,161,.12);border:1px solid rgba(245,66,161,.25);border-radius:12px;padding:10px;text-align:center;cursor:pointer}
+.som-mob.playing{background:rgba(245,66,161,.3);border-color:var(--pk)}
+.som-em{font-size:20px;margin-bottom:4px}
+.som-nm{font-size:9px;color:#f9a8d4;font-weight:600}
+.player-mob{display:none;background:rgba(245,66,161,.2);border-radius:10px;padding:10px;margin-top:8px;align-items:center;gap:8px}
+.player-mob.show{display:flex}
+.wave-mob{display:flex;align-items:center;gap:2px;height:14px}
+.wave-mob span{display:block;width:2px;background:var(--pk);border-radius:2px;animation:wv .8s ease-in-out infinite}
+.wave-mob span:nth-child(1){height:5px}.wave-mob span:nth-child(2){height:10px;animation-delay:.1s}
+.wave-mob span:nth-child(3){height:14px;animation-delay:.2s}.wave-mob span:nth-child(4){height:10px;animation-delay:.3s}.wave-mob span:nth-child(5){height:5px;animation-delay:.4s}
+@keyframes wv{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+.stop-mob{background:var(--pk);color:#fff;border:none;border-radius:16px;padding:4px 10px;font-size:9px;cursor:pointer}
+
+.mad-mob{background:#0d0520;padding:14px}
+.mad-t{font-size:14px;font-weight:700;color:#e4b8d4;margin-bottom:4px}
+.mad-f{font-size:10px;color:#c896b0;font-style:italic;margin-bottom:12px;border-left:3px solid var(--pk);padding-left:8px}
+.mad-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mad-c{background:rgba(245,66,161,.1);border:1px solid rgba(245,66,161,.2);border-radius:10px;padding:10px;cursor:pointer}
+.mad-em{font-size:18px;margin-bottom:4px}
+.mad-bt{font-size:10px;font-weight:700;color:#e4b8d4;line-height:1.3;margin-bottom:2px}
+.mad-bd{font-size:9px;color:#9a7090;line-height:1.3}
+
+.mulher-mob{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mc-mob{background:#fff;border:1px solid #f9a8d4;border-radius:12px;overflow:hidden;cursor:pointer}
+.mc-cov{height:60px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.mc-inf{padding:6px 8px 8px}
+.mc-cat{font-size:8px;font-weight:700;color:var(--pk);text-transform:uppercase}
+.mc-tit{font-size:9px;font-weight:700;color:#222;line-height:1.3;margin-top:1px}
+.mc-fr{font-size:8px;color:#16a34a;font-weight:700;margin-top:2px}
+
+.ter-grid-mob{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ter-mob{border-radius:10px;padding:10px;text-align:center;cursor:pointer}
+.ter-em{font-size:20px;margin-bottom:4px}
+.ter-nm{font-size:10px;font-weight:700;color:#333;margin-bottom:2px}
+.ter-ds{font-size:9px;color:#888;line-height:1.3}
+
+.cartas-mob{display:flex;flex-direction:column;gap:8px}
+.carta-mob{background:#fff;border-radius:12px;padding:12px;border:1px solid #f9a8d4}
+.carta-ic{font-size:18px;margin-bottom:6px}
+.carta-tit{font-size:11px;font-weight:700;color:var(--pk3);margin-bottom:4px}
+.carta-tx{font-size:10px;color:#666;line-height:1.5;font-style:italic}
+.carta-aut{font-size:9px;color:var(--pk);margin-top:4px;font-weight:600}
+
+.nl-mob{background:var(--pk);padding:20px 14px;text-align:center;color:#fff}
+.nl-mob h2{font-size:15px;font-weight:700;margin-bottom:6px}
+.nl-mob p{font-size:10px;opacity:.9;margin-bottom:12px}
+.nl-mob-row{display:flex;flex-direction:column;gap:8px;align-items:center}
+.nl-in-mob{border:none;border-radius:20px;padding:9px 14px;font-size:11px;width:100%;max-width:240px;outline:none;color:#333}
+.nl-btn-mob{background:#fff;color:var(--pk);border:none;border-radius:20px;padding:9px 18px;font-size:11px;cursor:pointer;font-weight:700;width:100%;max-width:240px}
+
+.foot-mob{background:#fff;border-top:1.5px solid #f9a8d4;padding:12px;text-align:center}
+.foot-brand{font-size:14px;font-weight:700;color:var(--pk)}
+.foot-sl{font-size:9px;color:#aaa;font-style:italic;margin-top:2px}
+
+.mob-bottom-nav{display:flex;justify-content:space-around;background:#fff;border-top:1.5px solid #f9a8d4;padding:8px 0 4px;position:sticky;bottom:0}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;min-width:44px}
+.bnav-ic{font-size:18px}
+.bnav-lb{font-size:8px;color:#888;font-weight:600}
+.bnav-item.act .bnav-lb{color:var(--pk)}
+</style>
+
+<h2 class="sr-only">LIVRARIACRIART versão mobile — refúgio emocional digital em formato telemóvel</h2>
+
+<div style="padding:1rem 0;background:var(--color-background-secondary)">
+<div class="phone">
+  <div style="background:#fff;padding:8px 0 0">
+    <div class="notch"><div class="notch-dot"></div></div>
+  </div>
+
+  <div class="screen" id="screen">
+
+    <nav class="mob-nav">
+      <div>
+        <div class="mob-logo">🦋 LIVRARIACRIART</div>
+        <div class="mob-logo-sub">Ler, sonhar e crescer</div>
+      </div>
+      <div class="mob-menu">
+        <div class="mob-icon">🔍</div>
+        <button class="mob-btn">Entrar</button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="mob-hero">
+      <div class="bf bf1">🦋</div><div class="bf bf2">🦋</div><div class="bf bf3">🦋</div><div class="bf bf4">🦋</div>
+      <div class="frase-mob" id="frase-mob"></div>
+      <div class="mob-h1">O teu <span>refúgio emocional</span><br>em livros</div>
+      <div class="mob-p">Livros gratuitos para cada sentimento, cada fase e cada momento da tua vida.</div>
+      <div class="mob-btns">
+        <button class="mbtn-p">📚 Explorar</button>
+        <button class="mbtn-s" onclick="surpresaMob()">✨ Surpreenda-me</button>
+      </div>
+      <div class="surpresa-res" id="surpresa-mob"></div>
+    </div>
+
+    <div class="mob-stats">
+      <div class="mstat"><div class="mstat-n">500+</div><div class="mstat-l">Livros</div></div>
+      <div class="mstat"><div class="mstat-n">12</div><div class="mstat-l">Categorias</div></div>
+      <div class="mstat"><div class="mstat-n">2K+</div><div class="mstat-l">Leitoras</div></div>
+      <div class="mstat"><div class="mstat-n">100%</div><div class="mstat-l">Grátis</div></div>
+    </div>
+
+    <!-- ESTANTE VIVA -->
+    <div class="msec" style="padding-bottom:0">
+      <div class="msec-title">🎨 <span>Estante Viva</span></div>
+      <div class="msec-sub">Desliza e toca nos livros!</div>
+    </div>
+    <div style="padding:0 14px 14px;background:#fdf0f8">
+      <div class="estante" id="estante-mob"></div>
+    </div>
+
+    <!-- CORAÇÃO -->
+    <div class="msec">
+      <div class="msec-title">🌦️ Como está <span>teu coração</span>?</div>
+      <div class="msec-sub">Escolhe e recebe livros para o teu momento</div>
+      <div class="feelings">
+        <div class="feel" onclick="sentMob('triste',this)"><div class="feel-em">🌧️</div><div class="feel-tx">Estou triste</div></div>
+        <div class="feel" onclick="sentMob('motivacao',this)"><div class="feel-em">🔥</div><div class="feel-tx">Preciso motivação</div></div>
+        <div class="feel" onclick="sentMob('financas',this)"><div class="feel-em">💸</div><div class="feel-tx">Melhorar finanças</div></div>
+        <div class="feel" onclick="sentMob('recomeco',this)"><div class="feel-em">🌱</div><div class="feel-tx">Quero recomeçar</div></div>
+        <div class="feel" onclick="sentMob('paz',this)"><div class="feel-em">🌙</div><div class="feel-tx">Só quero paz</div></div>
+        <div class="feel" onclick="sentMob('perdida',this)"><div class="feel-em">🌪️</div><div class="feel-tx">Me sinto perdida</div></div>
+      </div>
+      <div class="feel-res" id="feel-res-mob">
+        <div class="feel-tit" id="feel-tit-mob"></div>
+        <div class="mini-bks" id="mini-bks-mob"></div>
+      </div>
+    </div>
+
+    <!-- FASE ATUAL -->
+    <div class="msec" style="background:var(--pk2)">
+      <div class="msec-title">🌿 Livros para a <span>tua fase</span></div>
+      <div class="msec-sub">Onde estás na vida agora?</div>
+      <div class="fases">
+        <div class="fase-c" onclick="faseMob('desempregada',this)"><div class="fase-em">😔</div><div class="fase-tx">Desempregada</div></div>
+        <div class="fase-c" onclick="faseMob('estudante',this)"><div class="fase-em">📚</div><div class="fase-tx">Estudante</div></div>
+        <div class="fase-c" onclick="faseMob('coracao',this)"><div class="fase-em">💔</div><div class="fase-tx">Coração partido</div></div>
+        <div class="fase-c" onclick="faseMob('negocio',this)"><div class="fase-em">🚀</div><div class="fase-tx">Novo negócio</div></div>
+        <div class="fase-c" onclick="faseMob('semmotivacao',this)"><div class="fase-em">😶</div><div class="fase-tx">Sem motivação</div></div>
+        <div class="fase-c" onclick="faseMob('mae',this)"><div class="fase-em">🌸</div><div class="fase-tx">Mãe</div></div>
+      </div>
+      <div class="fase-res" id="fase-res-mob">
+        <div class="feel-tit" id="fase-tit-mob"></div>
+        <div class="mini-bks" id="fase-bks-mob"></div>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="msec" style="background:#0d0520">
+      <div class="msec-title" style="color:#f9a8d4">🧠 Teste <span style="color:#f9a8d4">Emocional</span></div>
+      <div class="msec-sub" style="color:#9a7090;margin-bottom:10px">3 perguntas — 1 livro perfeito para ti</div>
+      <div class="quiz-box">
+        <div class="qprog" id="qprog-mob"></div>
+        <div class="quiz-q-mob" id="quiz-q-mob"></div>
+        <div class="quiz-opts-mob" id="quiz-opts-mob"></div>
+        <div class="quiz-res-mob" id="quiz-res-mob"><h4>📖 O teu livro perfeito:</h4><p id="quiz-liv-mob"></p></div>
+      </div>
+    </div>
+
+    <!-- PROIBIDOS -->
+    <div class="msec" style="background:#0d0520;padding-top:0;padding-bottom:14px">
+      <div class="msec-title" style="color:#f9a8d4">🔥 <span style="color:#f542a1">Proibidos</span> de Ignorar</div>
+      <div class="msec-sub" style="color:#9a7090">Transformadores. Essenciais.</div>
+      <div class="proib-grid">
+        <div class="proib-c"><div class="proib-em">💀</div><div class="proib-t">Sapiens</div><div class="proib-d">A história que ninguém te contou</div><div class="proib-b">🔥 Viral</div></div>
+        <div class="proib-c"><div class="proib-em">🧠</div><div class="proib-t">Pensar Rápido e Devagar</div><div class="proib-d">Como a mente te engana</div><div class="proib-b">💡 Essencial</div></div>
+        <div class="proib-c"><div class="proib-em">⚡</div><div class="proib-t">O Poder do Hábito</div><div class="proib-d">Muda em 48 horas</div><div class="proib-b">✨ Transformador</div></div>
+        <div class="proib-c"><div class="proib-em">🌪️</div><div class="proib-t">Em Busca de Sentido</div><div class="proib-d">Escrito num campo de concentração</div><div class="proib-b">❤️ Profundo</div></div>
+      </div>
+    </div>
+
+    <!-- CANTINHO -->
+    <div class="msec cantinho-mob">
+      <div class="nuv nu1">☁️</div><div class="nuv nu2">☁️</div>
+      <div style="position:relative;z-index:1">
+        <div class="msec-title" style="text-align:center">☕ <span>Cantinho</span> Confortável</div>
+        <div class="msec-sub" style="text-align:center">O teu lugar de paz. Senta. Respira. Lê.</div>
+        <div class="cant-cards">
+          <div class="cant-c"><div class="cant-ic">🌸</div><div class="cant-nm">Livros leves</div><div class="cant-ds">Para tardes tranquilas</div></div>
+          <div class="cant-c"><div class="cant-ic">☕</div><div class="cant-nm">Leitura + café</div><div class="cant-ds">Histórias para saborear</div></div>
+          <div class="cant-c"><div class="cant-ic">🕯️</div><div class="cant-nm">Noite aconchegante</div><div class="cant-ds">Vela, cobertor, livro</div></div>
+          <div class="cant-c"><div class="cant-ic">🌼</div><div class="cant-nm">Fim-de-semana</div><div class="cant-ds">Histórias inesquecíveis</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESAFIO 7 DIAS -->
+    <div class="msec">
+      <div class="msec-title">📅 <span>Desafio de 7 Dias</span></div>
+      <div class="msec-sub">Um livro, uma reflexão, uma transformação por dia</div>
+      <div class="desafio-tabs-mob">
+        <div class="dtab-mob active" onclick="desTbMob('motivacao',this)">🔥 Motivação</div>
+        <div class="dtab-mob" onclick="desTbMob('autoestima',this)">💗 Autoestima</div>
+        <div class="dtab-mob" onclick="desTbMob('financas',this)">💰 Finanças</div>
+      </div>
+      <div id="des-motivacao" class="dias-grid"></div>
+      <div id="des-autoestima" class="dias-grid" style="display:none"></div>
+      <div id="des-financas" class="dias-grid" style="display:none"></div>
+    </div>
+
+    <!-- LEITORES ANÔNIMOS -->
+    <div class="msec" style="background:#fdf0f8">
+      <div class="msec-title">👀 <span>Leitores Anónimos</span></div>
+      <div class="msec-sub">Histórias reais que transformaram vidas</div>
+      <div class="depo-grid-mob" id="depo-mob"></div>
+      <div class="depo-form-mob">
+        <h4>💌 Partilha a tua história:</h4>
+        <textarea id="depo-in-mob" rows="3" placeholder="Qual livro mudou a tua vida?"></textarea>
+        <br><button class="depo-btn-mob" onclick="enviaMob()">Partilhar 🦋</button>
+      </div>
+    </div>
+
+    <!-- RECEITA EMOCIONAL -->
+    <div class="receita-mob msec" style="background:#0d0520">
+      <div class="msec-title" style="color:#f9a8d4">💊 Receita <span style="color:#f542a1">Emocional</span></div>
+      <div class="msec-sub" style="color:#9a7090">Diz o teu sintoma — prescrevemos o remédio</div>
+      <div class="sintomas-mob">
+        <div class="sint-mob" onclick="receitaMob('cansado',this)">😔 Coração cansado</div>
+        <div class="sint-mob" onclick="receitaMob('ansioso',this)">😰 Ansiedade</div>
+        <div class="sint-mob" onclick="receitaMob('perdida',this)">🌪️ Perdida</div>
+        <div class="sint-mob" onclick="receitaMob('sozinha',this)">🌙 Solidão</div>
+      </div>
+      <div class="rec-card-mob" id="rec-card-mob">
+        <div class="rc-h" id="rc-h-mob"></div>
+        <div id="rc-items-mob"></div>
+      </div>
+    </div>
+
+    <!-- MODO SILENCIOSO -->
+    <div class="msec" style="background:#120820">
+      <div class="msec-title" style="color:#f9a8d4">🎧 Modo <span style="color:#f542a1">Silencioso</span></div>
+      <div class="msec-sub" style="color:#9a7090">Som ambiente para ler com paz</div>
+      <div class="sons-mob">
+        <div class="som-mob" onclick="somMob('🌧️ Chuva suave',this)"><div class="som-em">🌧️</div><div class="som-nm">Chuva suave</div></div>
+        <div class="som-mob" onclick="somMob('🎵 Lo-fi',this)"><div class="som-em">🎵</div><div class="som-nm">Lo-fi beats</div></div>
+        <div class="som-mob" onclick="somMob('🌊 Mar',this)"><div class="som-em">🌊</div><div class="som-nm">Ondas do mar</div></div>
+        <div class="som-mob" onclick="somMob('🌿 Floresta',this)"><div class="som-em">🌿</div><div class="som-nm">Floresta</div></div>
+      </div>
+      <div class="player-mob" id="player-mob">
+        <div class="wave-mob"><span></span><span></span><span></span><span></span><span></span></div>
+        <span style="font-size:10px;color:#f9a8d4;font-weight:600;flex:1" id="player-lbl-mob"></span>
+        <button class="stop-mob" onclick="pararMob()">Parar</button>
+      </div>
+    </div>
+
+    <!-- MADRUGADA -->
+    <div class="msec mad-mob">
+      <div class="mad-t">🌙 Biblioteca da Madrugada</div>
+      <div class="mad-f">"Para quem pensa demais à noite."</div>
+      <div class="mad-grid">
+        <div class="mad-c"><div class="mad-em">🌌</div><div class="mad-bt">O Alquimista</div><div class="mad-bd">Para quem procura o seu caminho</div></div>
+        <div class="mad-c"><div class="mad-em">💭</div><div class="mad-bt">Siddhartha</div><div class="mad-bd">Reflexões profundas</div></div>
+        <div class="mad-c"><div class="mad-em">🌙</div><div class="mad-bt">O Poder do Agora</div><div class="mad-bd">Acalma a mente à noite</div></div>
+        <div class="mad-c"><div class="mad-em">✨</div><div class="mad-bt">Pequeno Príncipe</div><div class="mad-bd">Para os que ainda sonham</div></div>
+      </div>
+    </div>
+
+    <!-- MULHERES FORTES -->
+    <div class="msec" style="background:var(--pk2)">
+      <div class="msec-title">🌸 <span>Mulheres Fortes</span></div>
+      <div class="msec-sub">Autoestima, carreira, independência</div>
+      <div class="mulher-mob">
+        <div class="mc-mob"><div class="mc-cov" style="background:#fce4f3">💪</div><div class="mc-inf"><div class="mc-cat">Autoestima</div><div class="mc-tit">Mulheres que Correm com os Lobos</div><div class="mc-fr">✓ Grátis</div></div></div>
+        <div class="mc-mob"><div class="mc-cov" style="background:#fef9c3">🚀</div><div class="mc-inf"><div class="mc-cat">Carreira</div><div class="mc-tit">Lean In — Sheryl Sandberg</div><div class="mc-fr">✓ Grátis</div></div></div>
+        <div class="mc-mob"><div class="mc-cov" style="background:#dbeafe">🌱</div><div class="mc-inf"><div class="mc-cat">Recomeço</div><div class="mc-tit">A Cor Púrpura</div><div class="mc-fr">✓ Grátis</div></div></div>
+        <div class="mc-mob"><div class="mc-cov" style="background:#dcfce7">🦋</div><div class="mc-inf"><div class="mc-cat">Independência</div><div class="mc-tit">Becoming — Michelle Obama</div><div class="mc-fr">✓ Grátis</div></div></div>
+      </div>
+    </div>
+
+    <!-- TERAPIA -->
+    <div class="msec">
+      <div class="msec-title">✨ Leitura <span>Terapêutica</span></div>
+      <div class="msec-sub">Para cada dor, há uma história que cura</div>
+      <div class="ter-grid-mob">
+        <div class="ter-mob" style="background:#e0f2fe"><div class="ter-em">😮‍💨</div><div class="ter-nm">Ansiedade</div><div class="ter-ds">Acalma a mente</div></div>
+        <div class="ter-mob" style="background:#fce4f3"><div class="ter-em">💔</div><div class="ter-nm">Coração partido</div><div class="ter-ds">Curar e seguir</div></div>
+        <div class="ter-mob" style="background:#fef9c3"><div class="ter-em">🌑</div><div class="ter-nm">Sem esperança</div><div class="ter-ds">Luz no escuro</div></div>
+        <div class="ter-mob" style="background:#dcfce7"><div class="ter-em">🌿</div><div class="ter-nm">Para curar</div><div class="ter-ds">Cura suave</div></div>
+        <div class="ter-mob" style="background:#ede9fe"><div class="ter-em">🧠</div><div class="ter-nm">Saúde mental</div><div class="ter-ds">Compreende a mente</div></div>
+        <div class="ter-mob" style="background:#fff7ed"><div class="ter-em">🔄</div><div class="ter-nm">Recomeçar</div><div class="ter-ds">Nova força</div></div>
+      </div>
+    </div>
+
+    <!-- CARTAS -->
+    <div class="msec" style="background:var(--pk4)">
+      <div class="msec-title">💌 Cartas que <span>Curam</span></div>
+      <div class="msec-sub">Palavras escritas para o teu coração</div>
+      <div class="cartas-mob">
+        <div class="carta-mob"><div class="carta-ic">💌</div><div class="carta-tit">Para quem está cansada</div><div class="carta-tx">"Está tudo bem parar. O teu esforço é visto. Descansa — amanhã és capaz."</div><div class="carta-aut">— Da LIVRARIACRIART com amor</div></div>
+        <div class="carta-mob"><div class="carta-ic">🌸</div><div class="carta-tit">Para quem quer recomeçar</div><div class="carta-tx">"Recomeçar não é fraqueza — é a maior coragem que existe."</div><div class="carta-aut">— Da LIVRARIACRIART com amor</div></div>
+        <div class="carta-mob"><div class="carta-ic">🦋</div><div class="carta-tit">Para quem se sente perdida</div><div class="carta-tx">"Borboletas ficam presas antes de voar. Estás apenas a te transformar."</div><div class="carta-aut">— Da LIVRARIACRIART com amor</div></div>
+      </div>
+    </div>
+
+    <!-- NEWSLETTER -->
+    <div class="nl-mob">
+      <h2>🌸 Recebe livros toda semana</h2>
+      <p>Junta-te a mais de 2.000 leitoras</p>
+      <div class="nl-mob-row">
+        <input class="nl-in-mob" type="email" placeholder="O teu email..."/>
+        <button class="nl-btn-mob">Subscrever 🦋</button>
+      </div>
+    </div>
+
+    <div class="foot-mob">
+      <div class="foot-brand">🦋 LIVRARIACRIART</div>
+      <div class="foot-sl">Ler, sonhar e crescer · Feito com 💗</div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <div class="mob-bottom-nav">
+      <div class="bnav-item act"><div class="bnav-ic">🏠</div><div class="bnav-lb" style="color:var(--pk)">Início</div></div>
+      <div class="bnav-item"><div class="bnav-ic">📚</div><div class="bnav-lb">Biblioteca</div></div>
+      <div class="bnav-item"><div class="bnav-ic">🧠</div><div class="bnav-lb">Quiz</div></div>
+      <div class="bnav-item"><div class="bnav-ic">💌</div><div class="bnav-lb">Cartas</div></div>
+      <div class="bnav-item"><div class="bnav-ic">👤</div><div class="bnav-lb">Perfil</div></div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+const frases=["✨ \"Talvez hoje seja o começo da tua nova história.\"","🦋 \"Cada livro que lês é uma parte de ti que desperta.\"","🌸 \"Ler é a forma mais suave de mudar quem és.\"","🌙 \"Há paz em cada página.\"","💗 \"A tua força está em ti.\""];
+document.getElementById('frase-mob').textContent=frases[Math.floor(Math.random()*frases.length)];
+
+const livAl=["📖 O Poder do Hábito","🌸 Mulheres que Correm com os Lobos","🌙 O Alquimista","💡 Pai Rico, Pai Pobre","🦋 Becoming","🧠 Sapiens","🌿 Siddhartha","💌 Pequeno Príncipe"];
+function surpresaMob(){const el=document.getElementById('surpresa-mob');el.style.display='block';el.innerHTML='<strong style="color:var(--pk3)">📖 Livro para ti:</strong> '+livAl[Math.floor(Math.random()*livAl.length)];}
+
+const bks=[{t:"HÁBITO",c:"#f542a1",h:70},{t:"RICO",c:"#c2186b",h:85},{t:"AMOR",c:"#f877bc",h:74},{t:"ZEN",c:"#e0349a",h:62},{t:"MENTE",c:"#f542a1",h:80},{t:"ARTE",c:"#f9a8d4",h:58},{t:"PODER",c:"#c2186b",h:78},{t:"ALMA",c:"#f542a1",h:68},{t:"LUZ",c:"#e0349a",h:88}];
+const est=document.getElementById('estante-mob');
+bks.forEach(b=>{const d=document.createElement('div');d.className='bk-e';d.style.cssText=`background:${b.c};width:30px;height:${b.h}px`;d.textContent=b.t;est.appendChild(d);});
+
+const fd={triste:{t:"🌧️ Para quem está triste",l:["Tudo se Ilumina","A Cabana","O Dom das Imperfeições","Para Sempre Alice"]},motivacao:{t:"🔥 Para te levantar!",l:["Faça Acontecer","Garra","Mindset","Os Segredos da Mente"]},financas:{t:"💸 Para transformar finanças",l:["Pai Rico Pai Pobre","Homem Mais Rico da Babilónia","Psicologia Financeira","Dinheiro"]},recomeco:{t:"🌱 Para recomeçar com coragem",l:["Becoming","A Cor Púrpura","Um Novo Mundo","Coragem de Ser Imperfeito"]},paz:{t:"🌙 Para paz interior",l:["O Poder do Agora","Siddhartha","Ikigai","A Arte da Leveza"]},perdida:{t:"🌪️ Para quem se sente perdida",l:["O Alquimista","Eat Pray Love","A Vida que Escolhemos","Encontra o Teu Porquê"]}};
+function sentMob(t,el){document.querySelectorAll('.feel').forEach(f=>f.classList.remove('active'));el.classList.add('active');const d=fd[t];document.getElementById('feel-tit-mob').textContent=d.t;document.getElementById('mini-bks-mob').innerHTML=d.l.map(l=>`<div class="mbk">📖 ${l}</div>`).join('');document.getElementById('feel-res-mob').classList.add('show');}
+
+const faseD={desempregada:{t:"😔 Para quem está à procura",l:["Quem Mexeu no Meu Queijo?","O Monge e o Executivo","A Startup de Você","Networking"]},estudante:{t:"📚 Para estudantes",l:["Como Fazer Amigos","Deep Work","Roube como Artista","Método Harvard"]},coracao:{t:"💔 Para curar o coração",l:["Tudo se Ilumina","Eat Pray Love","Deixa Ele Ir","A Vida Recomeça"]},negocio:{t:"🚀 Para novos empreendedores",l:["De Zero a Um","A Startup Enxuta","Bíblia do Marketing","Negócio do Séc. XXI"]},semmotivacao:{t:"😶 Para despertar a tua força",l:["Não Desperdice uma Crise","David e Golias","Garra","Pode Me Chamar de Vencedor"]},mae:{t:"🌸 Para mães incríveis",l:["Mãe por Inteiro","Criar Filhos Bem-Sucedidos","O Bebé Sabe","Amor sem Condicional"]}};
+function faseMob(t,el){document.querySelectorAll('.fase-c').forEach(f=>f.classList.remove('active'));el.classList.add('active');const d=faseD[t];document.getElementById('fase-tit-mob').textContent=d.t;document.getElementById('fase-bks-mob').innerHTML=d.l.map(l=>`<div class="mbk">📖 ${l}</div>`).join('');document.getElementById('fase-res-mob').classList.add('show');}
+
+const quiz=[{q:"Como te sentes esta semana?",o:["😔 Pesada e triste","🔥 Com energia perdida","😰 Ansiosa","😶 Vazia e sem rumo"]},{q:"O que mais precisas?",o:["💗 Não me sentir sozinha","💡 Nova perspectiva","🌿 Calma interior","🚀 Motivação para agir"]},{q:"Quando costumas ler?",o:["🌙 De madrugada","☕ De manhã","🌅 À noite","📱 Quando lembro"]}];
+const qRes=["📖 'O Poder do Agora' — Eckhart Tolle\nPaz e leveza para o caos interior.","📖 'Daring Greatly' — Brené Brown\nCoragem para abraçar a tua vulnerabilidade.","📖 'O Alquimista' — Paulo Coelho\nReencontra o teu propósito e força interior.","📖 'Mindset' — Carol Dweck\nDesperta o teu potencial adormecido."];
+let qi=0,qs=[];
+function rQ(){const p=document.getElementById('qprog-mob');p.innerHTML=quiz.map((_,i)=>`<div class="qp-mob${i<qi?' done':''}"></div>`).join('');if(qi<quiz.length){const q=quiz[qi];document.getElementById('quiz-q-mob').textContent=q.q;document.getElementById('quiz-opts-mob').innerHTML=q.o.map((o,i)=>`<button class="quiz-opt-mob" onclick="qR(${i})">${o}</button>`).join('');document.getElementById('quiz-res-mob').classList.remove('show');}else{document.getElementById('quiz-q-mob').textContent='';document.getElementById('quiz-opts-mob').innerHTML='';document.getElementById('quiz-liv-mob').textContent=qRes[qs[0]%qRes.length];document.getElementById('quiz-res-mob').classList.add('show');}}
+function qR(i){qs.push(i);qi++;rQ();}
+rQ();
+
+const desD={motivacao:[{n:1,t:"Por que perdi a motivação?"},{n:2,t:"Encontrar o teu porquê"},{n:3,t:"Pequenas vitórias"},{n:4,t:"O medo que te paralisa"},{n:5,t:"Reconstruir a confiança"},{n:6,t:"Criar momentum"},{n:7,t:"Celebrar quem és hoje"}],autoestima:[{n:1,t:"Quem és sem a opinião alheia?"},{n:2,t:"As tuas qualidades ocultas"},{n:3,t:"Perdoar-se"},{n:4,t:"Limites saudáveis"},{n:5,t:"O teu corpo merece amor"},{n:6,t:"Falar bem de ti"},{n:7,t:"Acreditar na tua história"}],financas:[{n:1,t:"A tua relação com dinheiro"},{n:2,t:"Crenças limitantes"},{n:3,t:"Orçamento consciente"},{n:4,t:"Poupança com propósito"},{n:5,t:"Renda extra possível"},{n:6,t:"Investir no futuro"},{n:7,t:"Mentalidade de abundância"}]};
+['motivacao','autoestima','financas'].forEach(k=>{const el=document.getElementById('des-'+k);desD[k].forEach(d=>{const div=document.createElement('div');div.className='dia-c';div.innerHTML=`<div class="dia-n">${d.n}</div><div class="dia-l">${d.t}</div>`;el.appendChild(div);});});
+function desTbMob(t,el){document.querySelectorAll('.dtab-mob').forEach(d=>d.classList.remove('active'));el.classList.add('active');['motivacao','autoestima','financas'].forEach(k=>{document.getElementById('des-'+k).style.display=k===t?'grid':'none';});}
+
+const deps=[{t:'"Esse livro me ajudou quando eu queria desistir de tudo."',l:"📖 O Alquimista"},{t:'"Pai Rico, Pai Pobre mudou a minha mentalidade financeira."',l:"📖 Pai Rico, Pai Pobre"},{t:'"Becoming da Michelle Obama fez-me acreditar na minha história."',l:"📖 Becoming"}];
+function rDeps(){document.getElementById('depo-mob').innerHTML=deps.map(d=>`<div class="depo-mob"><div class="depo-txt">${d.t}</div><div class="depo-liv">${d.l}</div></div>`).join('');}
+rDeps();
+function enviaMob(){const v=document.getElementById('depo-in-mob').value.trim();if(!v)return;deps.unshift({t:`"${v}"`,l:"📖 Anónimo"});rDeps();document.getElementById('depo-in-mob').value='';}
+
+const recD={cansado:{h:"😔 Receita: Coração cansado",i:[{p:"📚 Livro",t:"O Dom das Imperfeições"},{p:"💬 Frase",t:'"Estás a fazer o teu melhor."'},{p:"🎵 Som",t:"Chuva suave + té quente"}]},ansioso:{h:"😰 Receita: Ansiedade",i:[{p:"📚 Livro",t:"O Poder do Agora"},{p:"💬 Frase",t:'"Respira. Este momento vai passar."'},{p:"🎵 Som",t:"Natureza + respiração 4-7-8"}]},perdida:{h:"🌪️ Receita: Sentir-se perdida",i:[{p:"📚 Livro",t:"O Alquimista"},{p:"💬 Frase",t:'"Estar perdida é o começo."'},{p:"🎵 Som",t:"Piano instrumental + vela"}]},sozinha:{h:"🌙 Receita: Solidão",i:[{p:"📚 Livro",t:"O Pequeno Príncipe"},{p:"💬 Frase",t:'"Sozinha e solitária são coisas diferentes."'},{p:"🎵 Som",t:"Jazz suave + chá quente"}]}};
+function receitaMob(t,el){document.querySelectorAll('.sint-mob').forEach(s=>s.classList.remove('active'));el.classList.add('active');const d=recD[t];document.getElementById('rc-h-mob').textContent=d.h;document.getElementById('rc-items-mob').innerHTML=d.i.map(i=>`<div class="rc-row"><div class="rc-pill">${i.p}</div><div class="rc-txt">${i.t}</div></div>`).join('');document.getElementById('rec-card-mob').classList.add('show');}
+
+function somMob(n,el){document.querySelectorAll('.som-mob').forEach(s=>s.classList.remove('playing'));el.classList.add('playing');document.getElementById('player-lbl-mob').textContent='A tocar: '+n;document.getElementById('player-mob').classList.add('show');}
+function pararMob(){document.querySelectorAll('.som-mob').forEach(s=>s.classList.remove('playing'));document.getElementById('player-mob').classList.remove('show');}
+</script>
