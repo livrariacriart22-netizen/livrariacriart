@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartas que Curam — LIVRARIACRIART</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
+:root{--pk:#f542a1;--pk2:#fce4f3;--pk3:#c2186b;--pk4:#fdf0f8}
+body{background:var(--pk4)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:#fff;border-bottom:2px solid #f9a8d4;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+.logo{font-size:16px;font-weight:700;color:var(--pk)}.logo-sub{font-size:9px;color:#aaa;letter-spacing:2px}
+.nav-links{display:flex;gap:16px}.nav-links a{font-size:12px;color:#555;text-decoration:none}.nav-links a.active,.nav-links a:hover{color:var(--pk);font-weight:700}
+.nav-btn{background:var(--pk);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-size:12px;cursor:pointer}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}.hamburger span{width:22px;height:2px;background:var(--pk);border-radius:2px;display:block}
+.mob-menu{display:none;flex-direction:column;background:#fff;border-bottom:1px solid #f9a8d4}.mob-menu a{padding:12px 24px;font-size:13px;color:#555;text-decoration:none;border-bottom:1px solid var(--pk4)}
+
+.hero-cartas{background:linear-gradient(135deg,#fff0f8,#fce4f3,#fff5e0);padding:48px 28px;text-align:center;border-bottom:2px solid #f9a8d4;position:relative;overflow:hidden}
+.bf{position:absolute;font-size:20px;animation:fl 3s ease-in-out infinite;opacity:.6}
+.bf1{top:10px;left:6%;animation-delay:0s}.bf2{top:20px;left:30%;animation-delay:.7s}
+.bf3{top:8px;right:25%;animation-delay:1.2s}.bf4{top:25px;right:7%;animation-delay:.4s}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-8px) rotate(5deg)}}
+.hero-cartas h1{font-size:28px;font-weight:700;color:#222;margin-bottom:8px}.hero-cartas h1 span{color:var(--pk)}
+.hero-cartas p{font-size:13px;color:#888;max-width:500px;margin:0 auto}
+
+.cats-cartas{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:20px 28px}
+.ccat{background:#fff;border:1.5px solid #f9a8d4;border-radius:20px;padding:7px 14px;font-size:12px;font-weight:600;color:#888;cursor:pointer;transition:all .2s}
+.ccat:hover,.ccat.active{background:var(--pk);color:#fff;border-color:var(--pk)}
+
+.cartas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;padding:20px 28px 40px;max-width:1100px;margin:0 auto}
+.carta-card{background:#fff;border-radius:18px;padding:24px;border:1px solid #f9a8d4;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:pointer}
+.carta-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(245,66,161,0.15)}
+.carta-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--pk)}
+.carta-envelope{font-size:28px;margin-bottom:12px}
+.carta-para{font-size:10px;font-weight:700;color:var(--pk);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.carta-titulo{font-size:16px;font-weight:700;color:#222;margin-bottom:12px;line-height:1.3}
+.carta-texto{font-size:13px;color:#555;line-height:1.8;font-style:italic;margin-bottom:14px}
+.carta-assinatura{font-size:11px;color:var(--pk);font-weight:600}
+.carta-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.carta-tag{background:var(--pk2);color:var(--pk3);font-size:10px;padding:3px 9px;border-radius:10px}
+.carta-partilhar{position:absolute;top:16px;right:16px;background:var(--pk2);border:none;border-radius:10px;padding:5px 10px;font-size:11px;color:var(--pk);cursor:pointer;font-weight:600}
+.carta-partilhar:hover{background:var(--pk);color:#fff}
+
+.escrever-section{background:var(--pk);padding:48px 28px;text-align:center;color:#fff}
+.escrever-section h2{font-size:22px;font-weight:700;margin-bottom:8px}
+.escrever-section p{font-size:13px;opacity:.9;margin-bottom:24px}
+.form-carta{background:rgba(255,255,255,0.15);border-radius:20px;padding:24px;max-width:560px;margin:0 auto;text-align:left}
+.form-label{font-size:12px;font-weight:700;color:rgba(255,255,255,.8);margin-bottom:6px;display:block}
+.form-select,.form-input,.form-textarea{width:100%;border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:10px 14px;font-size:13px;background:rgba(255,255,255,.15);color:#fff;outline:none;font-family:inherit;margin-bottom:14px}
+.form-select option{color:#333;background:#fff}
+.form-textarea{resize:none;height:100px}
+.form-textarea::placeholder,.form-input::placeholder{color:rgba(255,255,255,.5)}
+.form-btn{background:#fff;color:var(--pk);border:none;border-radius:20px;padding:12px 28px;font-size:14px;cursor:pointer;font-weight:700;width:100%}
+
+.toast{display:none;position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#333;color:#fff;border-radius:20px;padding:10px 20px;font-size:13px;z-index:200}
+.toast.show{display:block;animation:fadeInOut 2.5s forwards}
+@keyframes fadeInOut{0%{opacity:0;transform:translateX(-50%) translateY(10px)}15%{opacity:1;transform:translateX(-50%) translateY(0)}85%{opacity:1}100%{opacity:0}}
+
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1.5px solid #f9a8d4;padding:8px 0 12px;z-index:100;justify-content:space-around}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;min-width:44px}
+.bnav-ic{font-size:20px}.bnav-lb{font-size:9px;color:#888;font-weight:600}
+
+@media(max-width:768px){
+  .nav-links{display:none}.hamburger{display:flex}
+  .hero-cartas{padding:28px 16px}.hero-cartas h1{font-size:22px}
+  .cartas-grid{padding:16px;gap:14px;grid-template-columns:1fr}
+  .escrever-section{padding:32px 16px}
+  .bottom-nav{display:flex};body{padding-bottom:70px}
+  .cats-cartas{padding:14px 16px}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div><div class="logo">🦋 LIVRARIACRIART</div><div class="logo-sub">Ler, sonhar e crescer</div></div>
+  <div class="nav-links">
+    <a href="livrariacriart.html">Início</a><a href="biblioteca.html">Biblioteca</a>
+    <a href="quiz.html">Quiz</a><a href="cartas.html" class="active">Cartas</a><a href="perfil.html">Perfil</a>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <button class="nav-btn">🦋 Entrar</button>
+    <div class="hamburger" onclick="document.getElementById('mm').style.display=document.getElementById('mm').style.display==='flex'?'none':'flex';document.getElementById('mm').style.flexDirection='column'"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mob-menu" id="mm">
+  <a href="livrariacriart.html">🏠 Início</a><a href="biblioteca.html">📚 Biblioteca</a>
+  <a href="quiz.html">🧠 Quiz</a><a href="cartas.html">💌 Cartas</a><a href="perfil.html">👤 Perfil</a>
+</div>
+
+<div class="hero-cartas">
+  <div class="bf bf1">🦋</div><div class="bf bf2">🦋</div><div class="bf bf3">🦋</div><div class="bf bf4">🦋</div>
+  <h1>💌 Cartas que <span>Curam</span></h1>
+  <p>Palavras escritas com amor para o teu coração — para os dias difíceis, os recomeços e as vitórias silenciosas</p>
+</div>
+
+<div class="cats-cartas">
+  <div class="ccat active" onclick="filtrarCartas('todas',this)">💌 Todas</div>
+  <div class="ccat" onclick="filtrarCartas('cansada',this)">😔 Cansada</div>
+  <div class="ccat" onclick="filtrarCartas('recomeco',this)">🌱 Recomeço</div>
+  <div class="ccat" onclick="filtrarCartas('perdida',this)">🌪️ Perdida</div>
+  <div class="ccat" onclick="filtrarCartas('coragem',this)">💪 Coragem</div>
+  <div class="ccat" onclick="filtrarCartas('amor',this)">❤️ Amor-próprio</div>
+  <div class="ccat" onclick="filtrarCartas('madrugada',this)">🌙 Madrugada</div>
+</div>
+
+<div class="cartas-grid" id="cartas-grid"></div>
+
+<div class="escrever-section">
+  <h2>✍️ Escreve a tua carta</h2>
+  <p>Partilha palavras que possam ajudar outras leitoras — o teu texto pode curar alguém que nunca conhecerás</p>
+  <div class="form-carta">
+    <label class="form-label">Para quem é esta carta?</label>
+    <select class="form-select" id="carta-para">
+      <option value="">Escolhe o destinatário...</option>
+      <option>Para quem está cansada</option>
+      <option>Para quem quer recomeçar</option>
+      <option>Para quem se sente perdida</option>
+      <option>Para quem precisa de coragem</option>
+      <option>Para quem não se ama o suficiente</option>
+      <option>Para quem pensa demais à noite</option>
+    </select>
+    <label class="form-label">Título da tua carta</label>
+    <input class="form-input" id="carta-titulo-input" type="text" placeholder="Ex: Para a mulher que está prestes a desistir...">
+    <label class="form-label">Escreve a tua carta com amor</label>
+    <textarea class="form-textarea" id="carta-texto-input" placeholder="As tuas palavras podem curar alguém que nunca conhecerás..."></textarea>
+    <button class="form-btn" onclick="enviarCarta()">💌 Publicar carta anonimamente</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">💌 Carta publicada com amor!</div>
+
+<div class="bottom-nav">
+  <div class="bnav-item" onclick="location.href='livrariacriart.html'"><div class="bnav-ic">🏠</div><div class="bnav-lb">Início</div></div>
+  <div class="bnav-item" onclick="location.href='biblioteca.html'"><div class="bnav-ic">📚</div><div class="bnav-lb">Biblioteca</div></div>
+  <div class="bnav-item" onclick="location.href='quiz.html'"><div class="bnav-ic">🧠</div><div class="bnav-lb">Quiz</div></div>
+  <div class="bnav-item"><div class="bnav-ic" style="color:var(--pk)">💌</div><div class="bnav-lb" style="color:var(--pk)">Cartas</div></div>
+  <div class="bnav-item" onclick="location.href='perfil.html'"><div class="bnav-ic">👤</div><div class="bnav-lb">Perfil</div></div>
+</div>
+
+<script>
+let cartas=[
+  {env:"💌",para:"Para quem está cansada",titulo:"O teu cansaço tem um nome",texto:"Não é preguiça. Não é fraqueza. É o teu corpo dizendo que deste demais sem receber o suficiente de volta. Está tudo bem parar. Está tudo bem respirar. Descansa — amanhã és capaz de continuar.",assinatura:"— Da LIVRARIACRIART com amor",tags:["cansada","cuidado","gentileza"],cat:"cansada"},
+  {env:"🌸",para:"Para quem quer recomeçar",titulo:"Recomeçar é o acto mais corajoso",texto:"Toda a vez que te levantaste depois de caíres foi um recomeço. Toda a vez que escolheste tentar de novo foi coragem pura. A tua história não acabou — está apenas a virar de página.",assinatura:"— Da LIVRARIACRIART com amor",tags:["recomeco","coragem","esperança"],cat:"recomeco"},
+  {env:"🦋",para:"Para quem se sente perdida",titulo:"Perdida não significa perdida para sempre",texto:"As borboletas também ficam presas no casulo antes de voar. O que parece parado em ti pode estar apenas a transformar-se. Não precisas de ter tudo claro. Precisas apenas de respirar e confiar no processo.",assinatura:"— Da LIVRARIACRIART com amor",tags:["perdida","transformação","confiança"],cat:"perdida"},
+  {env:"💪",para:"Para quem precisa de coragem",titulo:"A coragem não é a ausência do medo",texto:"É dar o passo mesmo com o joelho a tremer. É dizer sim quando tudo em ti quer dizer não. É escolher-te a ti quando o mundo inteiro te pede que te esqueces. Tens mais coragem do que imaginas.",assinatura:"— Da LIVRARIACRIART com amor",tags:["coragem","força","acção"],cat:"coragem"},
+  {env:"❤️",para:"Para quem não se ama o suficiente",titulo:"Mereces o amor que dás aos outros",texto:"Há quanto tempo tratas toda a gente melhor do que te tratas a ti mesma? Há quanto tempo és a última da lista? Hoje quero que saibas: és digna de amor, de cuidado, de gentileza — especialmente o teu próprio.",assinatura:"— Da LIVRARIACRIART com amor",tags:["amor-próprio","autoestima","cuidado"],cat:"amor"},
+  {env:"🌙",para:"Para quem pensa demais à noite",titulo:"Para a madrugada que não passa",texto:"Eu sei que estás acordada. Que os pensamentos não param. Que a noite parece amplificar tudo o que te preocupa. Respira. O dia de amanhã não precisa de ser resolvido esta noite. Por hoje, basta existires.",assinatura:"— Da LIVRARIACRIART com amor",tags:["madrugada","ansiedade","paz"],cat:"madrugada"},
+  {env:"🌿",para:"Para quem está a reconstruir a vida",titulo:"Construir devagar também é construir",texto:"Não precisas de ter tudo de uma vez. Não precisas de ser perfeita na reconstrução. Cada tijolo que colocas, mesmo que pequeno, mesmo que torto, é parte da tua nova casa. Continua.",assinatura:"— Da LIVRARIACRIART com amor",tags:["recomeco","paciência","processo"],cat:"recomeco"},
+  {env:"✨",para:"Para quem desacreditou de si mesma",titulo:"Ainda estás aqui — e isso diz tudo",texto:"Depois de tudo o que passaste, ainda estás aqui. Ainda te levantas. Ainda tentas. Isso não é pouco — isso é extraordinário. Não desacredites de alguém que sobreviveu a tanto.",assinatura:"— Da LIVRARIACRIART com amor",tags:["resiliência","força","esperança"],cat:"coragem"},
+  {env:"💗",para:"Para quem está sozinha",titulo:"A solidão também ensina",texto:"Há uma diferença entre estar sozinha e sentir-se sozinha. Nem sempre coincidirão. E neste momento, mesmo que sintas que ninguém te vê — estou aqui, nestas palavras, a ver-te. Não estás tão sozinha quanto pensas.",assinatura:"— Da LIVRARIACRIART com amor",tags:["solidão","conexão","presença"],cat:"cansada"},
+];
+
+let catActual='todas';
+
+function renderCartas(lista){
+  document.getElementById('cartas-grid').innerHTML=lista.map(c=>`
+    <div class="carta-card">
+      <button class="carta-partilhar" onclick="partilhar('${c.titulo}')">Partilhar 💗</button>
+      <div class="carta-envelope">${c.env}</div>
+      <div class="carta-para">Para: ${c.para}</div>
+      <div class="carta-titulo">${c.titulo}</div>
+      <div class="carta-texto">"${c.texto}"</div>
+      <div class="carta-assinatura">${c.assinatura}</div>
+      <div class="carta-tags">${c.tags.map(t=>`<span class="carta-tag">${t}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+function filtrarCartas(cat,el){
+  catActual=cat;
+  document.querySelectorAll('.ccat').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderCartas(cat==='todas'?cartas:cartas.filter(c=>c.cat===cat));
+}
+
+function partilhar(titulo){
+  const toast=document.getElementById('toast');
+  toast.textContent='💗 Copiado! Partilha "'+titulo+'" com alguém que precisa.';
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2500);
+}
+
+function enviarCarta(){
+  const para=document.getElementById('carta-para').value;
+  const titulo=document.getElementById('carta-titulo-input').value.trim();
+  const texto=document.getElementById('carta-texto-input').value.trim();
+  if(!para||!titulo||!texto){alert('Por favor preenche todos os campos 💌');return;}
+  cartas.unshift({env:"💌",para,titulo,texto,assinatura:"— Leitora anónima",tags:["partilha","amor"],cat:"recomeco"});
+  renderCartas(catActual==='todas'?cartas:cartas.filter(c=>c.cat===catActual));
+  document.getElementById('carta-para').value='';
+  document.getElementById('carta-titulo-input').value='';
+  document.getElementById('carta-texto-input').value='';
+  const toast=document.getElementById('toast');
+  toast.textContent='💌 Carta publicada com amor!';
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2500);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+renderCartas(cartas);
+</script>
+</body>
+</html>
