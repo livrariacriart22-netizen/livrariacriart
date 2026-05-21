@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil — LIVRARIACRIART</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
+:root{--pk:#f542a1;--pk2:#fce4f3;--pk3:#c2186b;--pk4:#fdf0f8}
+body{background:var(--pk4)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:#fff;border-bottom:2px solid #f9a8d4;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+.logo{font-size:16px;font-weight:700;color:var(--pk)}.logo-sub{font-size:9px;color:#aaa;letter-spacing:2px}
+.nav-links{display:flex;gap:16px}.nav-links a{font-size:12px;color:#555;text-decoration:none}.nav-links a.active,.nav-links a:hover{color:var(--pk);font-weight:700}
+.nav-btn{background:var(--pk);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-size:12px;cursor:pointer}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}.hamburger span{width:22px;height:2px;background:var(--pk);border-radius:2px;display:block}
+.mob-menu{display:none;flex-direction:column;background:#fff;border-bottom:1px solid #f9a8d4}.mob-menu a{padding:12px 24px;font-size:13px;color:#555;text-decoration:none;border-bottom:1px solid var(--pk4)}
+
+.page{max-width:800px;margin:0 auto;padding:28px 24px 80px}
+
+/* PERFIL HEADER */
+.perfil-header{background:#fff;border-radius:20px;border:1.5px solid #f9a8d4;padding:28px;display:flex;align-items:center;gap:20px;margin-bottom:20px;flex-wrap:wrap}
+.avatar-wrap{position:relative;cursor:pointer}
+.avatar{width:80px;height:80px;border-radius:50%;background:var(--pk2);border:3px solid var(--pk);display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0}
+.avatar-edit{position:absolute;bottom:0;right:0;background:var(--pk);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.perfil-info{flex:1}
+.perfil-nome{font-size:20px;font-weight:700;color:#222;margin-bottom:4px}
+.perfil-slogan{font-size:13px;color:#888;margin-bottom:10px;font-style:italic}
+.perfil-badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{background:var(--pk2);color:var(--pk3);font-size:10px;padding:3px 10px;border-radius:10px;font-weight:600}
+.perfil-stats{display:flex;gap:16px;flex-wrap:wrap}
+.pstat{text-align:center;background:var(--pk4);border-radius:12px;padding:10px 16px}
+.pstat-n{font-size:20px;font-weight:700;color:var(--pk)}
+.pstat-l{font-size:10px;color:#888;margin-top:2px}
+.editar-btn{background:var(--pk2);color:var(--pk);border:1.5px solid #f9a8d4;border-radius:20px;padding:8px 18px;font-size:12px;cursor:pointer;font-weight:600;align-self:flex-start}
+.editar-btn:hover{background:var(--pk);color:#fff}
+
+/* EDIT MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;padding:16px}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:20px;padding:24px;width:100%;max-width:420px}
+.modal h3{font-size:16px;font-weight:700;color:var(--pk3);margin-bottom:16px}
+.modal label{font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:4px;margin-top:10px}
+.modal input,.modal textarea{width:100%;border:1.5px solid #f9a8d4;border-radius:10px;padding:10px 14px;font-size:13px;color:#333;outline:none;font-family:inherit;background:#fff}
+.modal input:focus,.modal textarea:focus{border-color:var(--pk)}
+.modal textarea{resize:none;height:70px}
+.modal-btns{display:flex;gap:10px;margin-top:16px}
+.modal-save{background:var(--pk);color:#fff;border:none;border-radius:20px;padding:10px 24px;font-size:13px;cursor:pointer;font-weight:700;flex:1}
+.modal-cancel{background:#fff;color:#888;border:1.5px solid #ddd;border-radius:20px;padding:10px 20px;font-size:13px;cursor:pointer}
+.avatar-opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.av-opt{width:44px;height:44px;border-radius:50%;background:var(--pk2);border:2px solid transparent;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer}
+.av-opt:hover,.av-opt.sel{border-color:var(--pk)}
+
+/* TABS */
+.tabs{display:flex;gap:0;background:#fff;border-radius:16px;border:1.5px solid #f9a8d4;overflow:hidden;margin-bottom:20px}
+.tab{flex:1;padding:12px;font-size:12px;font-weight:600;color:#888;cursor:pointer;text-align:center;border:none;background:transparent;transition:all .2s}
+.tab.active{background:var(--pk);color:#fff}
+.tab-content{display:none}.tab-content.show{display:block}
+
+/* LIDOS */
+.lidos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.lido-card{background:#fff;border-radius:14px;border:1.5px solid #f9a8d4;overflow:hidden;position:relative}
+.lido-cover{height:80px;display:flex;align-items:center;justify-content:center;font-size:28px}
+.lido-info{padding:8px 10px 10px}
+.lido-titulo{font-size:11px;font-weight:700;color:#222;line-height:1.3;margin-bottom:2px}
+.lido-autor{font-size:10px;color:#888}
+.lido-nota{display:flex;gap:2px;margin-top:4px}
+.estrela{font-size:12px;cursor:pointer;color:#ddd}.estrela.on{color:#f59e0b}
+.lido-remove{position:absolute;top:6px;right:6px;background:rgba(245,66,161,.15);border:none;border-radius:50%;width:20px;height:20px;font-size:10px;cursor:pointer;color:var(--pk)}
+
+/* FAVORITOS */
+.favs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.fav-card{background:#fff;border-radius:14px;border:1.5px solid #f9a8d4;overflow:hidden}
+.fav-cover{height:80px;display:flex;align-items:center;justify-content:center;font-size:28px}
+.fav-info{padding:8px 10px 10px}
+.fav-titulo{font-size:11px;font-weight:700;color:#222;line-height:1.3;margin-bottom:2px}
+.fav-autor{font-size:10px;color:#888}
+
+/* PROGRESSO */
+.prog-section{background:#fff;border-radius:16px;border:1.5px solid #f9a8d4;padding:20px;margin-bottom:14px}
+.prog-titulo{font-size:14px;font-weight:700;color:#222;margin-bottom:14px}
+.prog-item{margin-bottom:14px}
+.prog-label{display:flex;justify-content:space-between;font-size:12px;color:#555;margin-bottom:5px}
+.prog-bar{background:#f0d6e8;border-radius:10px;height:8px}
+.prog-fill{background:var(--pk);height:8px;border-radius:10px;transition:width .5s}
+.desafio-atual{background:var(--pk2);border-radius:12px;padding:14px;border:1.5px solid #f9a8d4;margin-top:16px}
+.des-label{font-size:11px;font-weight:700;color:var(--pk);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.des-nome{font-size:14px;font-weight:700;color:#222;margin-bottom:4px}
+.des-dia{font-size:12px;color:#888}
+.dias-check{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.dia-dot{width:32px;height:32px;border-radius:50%;background:#f0d6e8;border:none;font-size:12px;font-weight:700;color:#888;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dia-dot.done{background:var(--pk);color:#fff}
+
+/* CONFIGURAÇÕES */
+.config-section{background:#fff;border-radius:16px;border:1.5px solid #f9a8d4;padding:20px;margin-bottom:14px}
+.config-titulo{font-size:14px;font-weight:700;color:#222;margin-bottom:14px}
+.config-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:.5px solid var(--pk4)}
+.config-item:last-child{border-bottom:none}
+.config-label{font-size:13px;color:#333}
+.config-desc{font-size:11px;color:#aaa;margin-top:2px}
+.toggle{position:relative;width:40px;height:22px;background:#ddd;border-radius:11px;cursor:pointer;transition:background .2s;flex-shrink:0}
+.toggle.on{background:var(--pk)}
+.toggle::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:2px;left:2px;transition:left .2s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.toggle.on::after{left:20px}
+.sair-btn{background:#fff;color:#e53e3e;border:1.5px solid #fed7d7;border-radius:14px;padding:10px 20px;font-size:13px;cursor:pointer;font-weight:600;width:100%;margin-top:8px}
+.sair-btn:hover{background:#fff5f5}
+
+.empty-state{text-align:center;padding:32px;color:#aaa}
+.empty-state .em-icon{font-size:40px;margin-bottom:10px}
+.empty-state p{font-size:13px;line-height:1.6}
+.empty-btn{background:var(--pk);color:#fff;border:none;border-radius:20px;padding:10px 22px;font-size:13px;cursor:pointer;font-weight:600;margin-top:12px}
+
+.toast{display:none;position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#333;color:#fff;border-radius:20px;padding:10px 20px;font-size:13px;z-index:300;white-space:nowrap}
+.toast.show{display:block;animation:fade 2.5s forwards}
+@keyframes fade{0%{opacity:0;transform:translateX(-50%) translateY(8px)}15%{opacity:1;transform:translateX(-50%) translateY(0)}85%{opacity:1}100%{opacity:0}}
+
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1.5px solid #f9a8d4;padding:8px 0 12px;z-index:100;justify-content:space-around}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;min-width:44px}
+.bnav-ic{font-size:20px}.bnav-lb{font-size:9px;color:#888;font-weight:600}
+
+@media(max-width:768px){
+  .nav-links{display:none}.hamburger{display:flex}
+  .page{padding:16px 14px 80px}
+  .perfil-header{flex-direction:column;align-items:flex-start;gap:14px;padding:20px}
+  .perfil-stats{gap:10px}
+  .lidos-grid,.favs-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  .bottom-nav{display:flex};body{padding-bottom:70px}
+  .tab{font-size:11px;padding:10px 6px}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div><div class="logo">🦋 LIVRARIACRIART</div><div class="logo-sub">Ler, sonhar e crescer</div></div>
+  <div class="nav-links">
+    <a href="livrariacriart.html">Início</a><a href="biblioteca.html">Biblioteca</a>
+    <a href="quiz.html">Quiz</a><a href="cartas.html">Cartas</a><a href="perfil.html" class="active">Perfil</a>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <button class="nav-btn">🦋 Entrar</button>
+    <div class="hamburger" onclick="document.getElementById('mm').style.display=document.getElementById('mm').style.display==='flex'?'none':'flex';document.getElementById('mm').style.flexDirection='column'"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mob-menu" id="mm">
+  <a href="livrariacriart.html">🏠 Início</a><a href="biblioteca.html">📚 Biblioteca</a>
+  <a href="quiz.html">🧠 Quiz</a><a href="cartas.html">💌 Cartas</a><a href="perfil.html">👤 Perfil</a>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="perfil-header">
+    <div class="avatar-wrap" onclick="abrirModal()">
+      <div class="avatar" id="avatar-display">🦋</div>
+      <div class="avatar-edit">✏️</div>
+    </div>
+    <div class="perfil-info">
+      <div class="perfil-nome" id="display-nome">Leitora Criart</div>
+      <div class="perfil-slogan" id="display-bio">"Ler, sonhar e crescer todos os dias 🦋"</div>
+      <div class="perfil-badges">
+        <span class="badge">🦋 Leitora</span>
+        <span class="badge">🔥 7 dias seguidos</span>
+        <span class="badge">📚 10 livros lidos</span>
+      </div>
+    </div>
+    <div class="perfil-stats">
+      <div class="pstat"><div class="pstat-n" id="stat-lidos">0</div><div class="pstat-l">Lidos</div></div>
+      <div class="pstat"><div class="pstat-n" id="stat-favs">0</div><div class="pstat-l">Favoritos</div></div>
+      <div class="pstat"><div class="pstat-n">7</div><div class="pstat-l">Dias activa</div></div>
+    </div>
+    <button class="editar-btn" onclick="abrirModal()">✏️ Editar perfil</button>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="mudarTab('lidos',this)">📖 Lidos</button>
+    <button class="tab" onclick="mudarTab('favoritos',this)">❤️ Favoritos</button>
+    <button class="tab" onclick="mudarTab('progresso',this)">📊 Progresso</button>
+    <button class="tab" onclick="mudarTab('config',this)">⚙️ Config</button>
+  </div>
+
+  <!-- LIDOS -->
+  <div class="tab-content show" id="tab-lidos">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+      <div style="font-size:14px;font-weight:700;color:#222">Os teus livros lidos</div>
+      <button onclick="adicionarLido()" style="background:var(--pk);color:#fff;border:none;border-radius:16px;padding:8px 16px;font-size:12px;cursor:pointer;font-weight:600">+ Adicionar livro</button>
+    </div>
+    <div class="lidos-grid" id="lidos-grid"></div>
+  </div>
+
+  <!-- FAVORITOS -->
+  <div class="tab-content" id="tab-favoritos">
+    <div style="font-size:14px;font-weight:700;color:#222;margin-bottom:14px">Os teus favoritos</div>
+    <div class="favs-grid" id="favs-grid"></div>
+  </div>
+
+  <!-- PROGRESSO -->
+  <div class="tab-content" id="tab-progresso">
+    <div class="prog-section">
+      <div class="prog-titulo">📊 A tua jornada de leitura</div>
+      <div class="prog-item">
+        <div class="prog-label"><span>Meta mensal (10 livros)</span><span id="prog-val">0/10</span></div>
+        <div class="prog-bar"><div class="prog-fill" id="prog-mensal" style="width:0%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-label"><span>Categorias exploradas</span><span>3/8</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:37%"></div></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-label"><span>Dias de leitura este mês</span><span>7/30</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:23%"></div></div>
+      </div>
+    </div>
+    <div class="prog-section">
+      <div class="prog-titulo">📅 Desafio de 7 Dias — Motivação</div>
+      <div class="desafio-atual">
+        <div class="des-label">🔥 Em progresso</div>
+        <div class="des-nome">Recuperar Motivação em 7 Dias</div>
+        <div class="des-dia">Estás no Dia <span id="dia-atual">1</span> de 7</div>
+        <div class="dias-check" id="dias-check"></div>
+      </div>
+    </div>
+    <div class="prog-section">
+      <div class="prog-titulo">🏆 Conquistas</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px;margin-top:4px">
+        <div style="background:var(--pk2);border-radius:12px;padding:12px;text-align:center"><div style="font-size:24px">🦋</div><div style="font-size:10px;color:var(--pk3);margin-top:4px;font-weight:600">Primeira leitura</div></div>
+        <div style="background:var(--pk2);border-radius:12px;padding:12px;text-align:center"><div style="font-size:24px">🔥</div><div style="font-size:10px;color:var(--pk3);margin-top:4px;font-weight:600">7 dias seguidos</div></div>
+        <div style="background:var(--pk2);border-radius:12px;padding:12px;text-align:center"><div style="font-size:24px">📚</div><div style="font-size:10px;color:var(--pk3);margin-top:4px;font-weight:600">10 livros lidos</div></div>
+        <div style="background:#f0f0f0;border-radius:12px;padding:12px;text-align:center;opacity:.5"><div style="font-size:24px">🌟</div><div style="font-size:10px;color:#999;margin-top:4px;font-weight:600">50 livros lidos</div></div>
+        <div style="background:#f0f0f0;border-radius:12px;padding:12px;text-align:center;opacity:.5"><div style="font-size:24px">👑</div><div style="font-size:10px;color:#999;margin-top:4px;font-weight:600">100 livros lidos</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIG -->
+  <div class="tab-content" id="tab-config">
+    <div class="config-section">
+      <div class="config-titulo">🔔 Notificações</div>
+      <div class="config-item"><div><div class="config-label">Livro da semana</div><div class="config-desc">Receber sugestão semanal por email</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="config-item"><div><div class="config-label">Lembrete diário de leitura</div><div class="config-desc">Uma notificação por dia para ler</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+      <div class="config-item"><div><div class="config-label">Novas cartas publicadas</div><div class="config-desc">Quando novas cartas são adicionadas</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+    </div>
+    <div class="config-section">
+      <div class="config-titulo">🎨 Aparência</div>
+      <div class="config-item"><div><div class="config-label">Modo escuro</div><div class="config-desc">Interface em tons escuros</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+      <div class="config-item"><div><div class="config-label">Tamanho da fonte grande</div><div class="config-desc">Aumentar texto para melhor leitura</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+    </div>
+    <div class="config-section">
+      <div class="config-titulo">🔒 Privacidade</div>
+      <div class="config-item"><div><div class="config-label">Perfil público</div><div class="config-desc">Outras leitoras podem ver o teu perfil</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="config-item"><div><div class="config-label">Partilhar progresso</div><div class="config-desc">Mostrar livros lidos no perfil público</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+    </div>
+    <div class="config-section">
+      <div class="config-titulo">🗑️ Conta</div>
+      <button class="sair-btn" onclick="toast('👋 Sessão terminada com sucesso!')">Terminar sessão</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL EDITAR -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h3>✏️ Editar Perfil</h3>
+    <label>O teu avatar</label>
+    <div class="avatar-opts">
+      <div class="av-opt sel" onclick="selecionarAv('🦋',this)">🦋</div>
+      <div class="av-opt" onclick="selecionarAv('🌸',this)">🌸</div>
+      <div class="av-opt" onclick="selecionarAv('📚',this)">📚</div>
+      <div class="av-opt" onclick="selecionarAv('🌙',this)">🌙</div>
+      <div class="av-opt" onclick="selecionarAv('💗',this)">💗</div>
+      <div class="av-opt" onclick="selecionarAv('✨',this)">✨</div>
+      <div class="av-opt" onclick="selecionarAv('🌺',this)">🌺</div>
+      <div class="av-opt" onclick="selecionarAv('🦄',this)">🦄</div>
+    </div>
+    <label>O teu nome</label>
+    <input type="text" id="input-nome" placeholder="Como te chamas?" maxlength="30">
+    <label>A tua frase (bio)</label>
+    <textarea id="input-bio" placeholder="Ex: Leitora apaixonada, sonhadora e em constante crescimento ✨" maxlength="120"></textarea>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="fecharModal()">Cancelar</button>
+      <button class="modal-save" onclick="guardarPerfil()">💾 Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast-msg"></div>
+
+<div class="bottom-nav">
+  <div class="bnav-item" onclick="location.href='livrariacriart.html'"><div class="bnav-ic">🏠</div><div class="bnav-lb">Início</div></div>
+  <div class="bnav-item" onclick="location.href='biblioteca.html'"><div class="bnav-ic">📚</div><div class="bnav-lb">Biblioteca</div></div>
+  <div class="bnav-item" onclick="location.href='quiz.html'"><div class="bnav-ic">🧠</div><div class="bnav-lb">Quiz</div></div>
+  <div class="bnav-item" onclick="location.href='cartas.html'"><div class="bnav-ic">💌</div><div class="bnav-lb">Cartas</div></div>
+  <div class="bnav-item"><div class="bnav-ic" style="color:var(--pk)">👤</div><div class="bnav-lb" style="color:var(--pk)">Perfil</div></div>
+</div>
+
+<script>
+let perfil=JSON.parse(localStorage.getItem('criart-perfil')||'{"nome":"Leitora Criart","bio":"Ler, sonhar e crescer todos os dias 🦋","avatar":"🦋"}');
+let lidos=JSON.parse(localStorage.getItem('criart-lidos')||'[{"e":"📖","c":"#fce4f3","t":"O Poder do Hábito","a":"Charles Duhigg","nota":5},{"e":"🌿","c":"#dcfce7","t":"O Alquimista","a":"Paulo Coelho","nota":5}]');
+let favs=JSON.parse(localStorage.getItem('favs')||'[]');
+let diasFeitos=JSON.parse(localStorage.getItem('criart-dias')||'[true,true,false,false,false,false,false]');
+let avAtual=perfil.avatar;
+
+function renderPerfil(){
+  document.getElementById('avatar-display').textContent=perfil.avatar;
+  document.getElementById('display-nome').textContent=perfil.nome;
+  document.getElementById('display-bio').textContent='"'+perfil.bio+'"';
+  document.getElementById('stat-lidos').textContent=lidos.length;
+  document.getElementById('stat-favs').textContent=favs.length;
+  const pct=Math.min(lidos.length/10*100,100);
+  document.getElementById('prog-mensal').style.width=pct+'%';
+  document.getElementById('prog-val').textContent=lidos.length+'/10';
+}
+
+function renderLidos(){
+  const g=document.getElementById('lidos-grid');
+  if(!lidos.length){g.innerHTML=`<div class="empty-state"><div class="em-icon">📚</div><p>Ainda não adicionaste livros lidos.<br>Vai à biblioteca e marca os que já leste!</p><button class="empty-btn" onclick="location.href='biblioteca.html'">Ir à Biblioteca</button></div>`;return;}
+  g.innerHTML=lidos.map((l,i)=>`
+    <div class="lido-card">
+      <button class="lido-remove" onclick="removerLido(${i})">✕</button>
+      <div class="lido-cover" style="background:${l.c}">${l.e}</div>
+      <div class="lido-info">
+        <div class="lido-titulo">${l.t}</div>
+        <div class="lido-autor">${l.a}</div>
+        <div class="lido-nota">${[1,2,3,4,5].map(n=>`<span class="estrela${l.nota>=n?' on':''}" onclick="notaLivro(${i},${n})">★</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderFavs(){
+  const g=document.getElementById('favs-grid');
+  const livFavs=[
+    {e:"💡",c:"#fef9c3",t:"Pai Rico, Pai Pobre",a:"Robert Kiyosaki"},
+    {e:"🌸",c:"#fce4f3",t:"Becoming",a:"Michelle Obama"},
+    {e:"🧠",c:"#ede9fe",t:"Mindset",a:"Carol Dweck"},
+  ];
+  const lista=favs.length?favs.map((f,i)=>({e:livFavs[i%livFavs.length].e,c:livFavs[i%livFavs.length].c,t:f,a:""})):[];
+  if(!lista.length){g.innerHTML=`<div class="empty-state"><div class="em-icon">❤️</div><p>Ainda não tens favoritos.<br>Vai à biblioteca e clica no ♡ dos livros que amas!</p><button class="empty-btn" onclick="location.href='biblioteca.html'">Ir à Biblioteca</button></div>`;return;}
+  g.innerHTML=lista.map(l=>`
+    <div class="fav-card">
+      <div class="fav-cover" style="background:${l.c}">${l.e}</div>
+      <div class="fav-info"><div class="fav-titulo">${l.t}</div><div class="fav-autor">❤️ Favorito</div></div>
+    </div>`).join('');
+}
+
+function renderDias(){
+  const dc=document.getElementById('dias-check');
+  dc.innerHTML=diasFeitos.map((d,i)=>`
+    <button class="dia-dot${d?' done':''}" onclick="toggleDia(${i})">${i+1}</button>`).join('');
+  const diaAtual=diasFeitos.filter(Boolean).length;
+  document.getElementById('dia-atual').textContent=Math.min(diaAtual+1,7);
+}
+
+function toggleDia(i){diasFeitos[i]=!diasFeitos[i];localStorage.setItem('criart-dias',JSON.stringify(diasFeitos));renderDias();toast(diasFeitos[i]?'✅ Dia '+(i+1)+' concluído!':'Dia '+(i+1)+' desmarcado');}
+
+function removerLido(i){lidos.splice(i,1);localStorage.setItem('criart-lidos',JSON.stringify(lidos));renderLidos();renderPerfil();}
+function notaLivro(i,n){lidos[i].nota=n;localStorage.setItem('criart-lidos',JSON.stringify(lidos));renderLidos();}
+
+function adicionarLido(){
+  const t=prompt('Qual o título do livro que leste?');
+  if(!t)return;
+  const a=prompt('Qual o autor?')||'Desconhecido';
+  const cores=['#fce4f3','#fef9c3','#dbeafe','#dcfce7','#ede9fe'];
+  const emojis=['📖','📚','✨','🌿','💡','🌸','🔥','💎'];
+  lidos.unshift({e:emojis[Math.floor(Math.random()*emojis.length)],c:cores[Math.floor(Math.random()*cores.length)],t,a,nota:0});
+  localStorage.setItem('criart-lidos',JSON.stringify(lidos));
+  renderLidos();renderPerfil();
+  toast('📖 "'+t+'" adicionado!');
+}
+
+function mudarTab(tab,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('show'));
+  document.getElementById('tab-'+tab).classList.add('show');
+}
+
+let avSel=perfil.avatar;
+function abrirModal(){
+  document.getElementById('input-nome').value=perfil.nome;
+  document.getElementById('input-bio').value=perfil.bio;
+  document.getElementById('modal').classList.add('show');
+}
+function fecharModal(){document.getElementById('modal').classList.remove('show');}
+function selecionarAv(av,el){avSel=av;document.querySelectorAll('.av-opt').forEach(a=>a.classList.remove('sel'));el.classList.add('sel');}
+function guardarPerfil(){
+  perfil.nome=document.getElementById('input-nome').value.trim()||perfil.nome;
+  perfil.bio=document.getElementById('input-bio').value.trim()||perfil.bio;
+  perfil.avatar=avSel;
+  localStorage.setItem('criart-perfil',JSON.stringify(perfil));
+  renderPerfil();fecharModal();
+  toast('✅ Perfil actualizado!');
+}
+
+function toast(msg){
+  const t=document.getElementById('toast-msg');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+renderPerfil();renderLidos();renderFavs();renderDias();
+</script>
+</body>
+</html>
