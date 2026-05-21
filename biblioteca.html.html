@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca — LIVRARIACRIART</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
+:root{--pk:#f542a1;--pk2:#fce4f3;--pk3:#c2186b;--pk4:#fdf0f8}
+body{background:var(--pk4)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:#fff;border-bottom:2px solid #f9a8d4;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+.logo{font-size:16px;font-weight:700;color:var(--pk)}.logo-sub{font-size:9px;color:#aaa;letter-spacing:2px}
+.nav-links{display:flex;gap:16px}.nav-links a{font-size:12px;color:#555;text-decoration:none}.nav-links a.active,.nav-links a:hover{color:var(--pk);font-weight:700}
+.nav-btn{background:var(--pk);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-size:12px;cursor:pointer}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}.hamburger span{width:22px;height:2px;background:var(--pk);border-radius:2px;display:block}
+.mob-menu{display:none;flex-direction:column;background:#fff;border-bottom:1px solid #f9a8d4}.mob-menu a{padding:12px 24px;font-size:13px;color:#555;text-decoration:none;border-bottom:1px solid var(--pk4)}.mob-menu a:hover{background:var(--pk2);color:var(--pk)}
+
+.hero-lib{background:linear-gradient(135deg,#fff0f8,#fce4f3);padding:40px 28px;text-align:center;border-bottom:2px solid #f9a8d4}
+.hero-lib h1{font-size:28px;font-weight:700;color:#222;margin-bottom:8px}.hero-lib h1 span{color:var(--pk)}
+.hero-lib p{font-size:13px;color:#888;margin-bottom:20px}
+.search-wrap{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.search-input{border:1.5px solid #f9a8d4;border-radius:24px;padding:11px 20px;font-size:13px;width:280px;outline:none;background:#fff;color:#333}.search-input:focus{border-color:var(--pk)}
+.search-btn{background:var(--pk);color:#fff;border:none;border-radius:24px;padding:11px 22px;font-size:13px;cursor:pointer;font-weight:600}
+
+.cats-filter{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:20px 28px}
+.cat-btn{background:#fff;border:1.5px solid #f9a8d4;border-radius:20px;padding:7px 14px;font-size:12px;font-weight:600;color:#888;cursor:pointer;transition:all .2s}
+.cat-btn:hover,.cat-btn.active{background:var(--pk);color:#fff;border-color:var(--pk)}
+
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:16px;padding:20px 28px 40px}
+.book-card{background:#fff;border-radius:16px;border:1.5px solid #f9a8d4;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.book-card:hover{transform:translateY(-6px);box-shadow:0 8px 24px rgba(245,66,161,0.18)}
+.book-cover{height:120px;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative}
+.book-badge{position:absolute;top:8px;right:8px;background:var(--pk);color:#fff;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:700}
+.book-info{padding:10px 12px}
+.book-cat{font-size:9px;font-weight:700;color:var(--pk);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.book-title{font-size:12px;font-weight:700;color:#222;line-height:1.3;margin-bottom:2px}
+.book-author{font-size:11px;color:#888}
+.book-free{font-size:10px;color:#16a34a;font-weight:700;margin-top:3px}
+.book-actions{display:flex;gap:6px;padding:0 12px 12px}
+.btn-ler{background:var(--pk);color:#fff;border:none;border-radius:14px;padding:6px 10px;font-size:11px;cursor:pointer;font-weight:600;flex:1}
+.btn-fav{background:var(--pk2);color:var(--pk);border:1px solid #f9a8d4;border-radius:14px;padding:6px 10px;font-size:13px;cursor:pointer}
+.btn-fav.saved{background:var(--pk);color:#fff}
+.no-results{grid-column:1/-1;text-align:center;padding:48px;color:#aaa;font-size:14px}
+
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1.5px solid #f9a8d4;padding:8px 0 12px;z-index:100;justify-content:space-around}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;min-width:44px}
+.bnav-ic{font-size:20px}.bnav-lb{font-size:9px;color:#888;font-weight:600}
+
+@media(max-width:768px){
+  .nav-links{display:none}.hamburger{display:flex}
+  .hero-lib{padding:24px 16px}.hero-lib h1{font-size:22px}
+  .cats-filter{padding:14px 16px}.lib-grid{padding:14px 16px;gap:12px}
+  .lib-grid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr))}
+  .bottom-nav{display:flex}; body{padding-bottom:70px}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div><div class="logo">🦋 LIVRARIACRIART</div><div class="logo-sub">Ler, sonhar e crescer</div></div>
+  <div class="nav-links">
+    <a href="livrariacriart.html">Início</a>
+    <a href="biblioteca.html" class="active">Biblioteca</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="cartas.html">Cartas</a>
+    <a href="perfil.html">Perfil</a>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <button class="nav-btn">🦋 Entrar</button>
+    <div class="hamburger" onclick="document.getElementById('mob-menu').style.display=document.getElementById('mob-menu').style.display==='flex'?'none':'flex';document.getElementById('mob-menu').style.flexDirection='column'"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mob-menu" id="mob-menu">
+  <a href="livrariacriart.html">🏠 Início</a>
+  <a href="biblioteca.html">📚 Biblioteca</a>
+  <a href="quiz.html">🧠 Quiz</a>
+  <a href="cartas.html">💌 Cartas</a>
+  <a href="perfil.html">👤 Perfil</a>
+</div>
+
+<div class="hero-lib">
+  <h1>📚 Nossa <span>Biblioteca</span></h1>
+  <p>Livros gratuitos organizados por categoria — encontra o teu agora</p>
+  <div class="search-wrap">
+    <input class="search-input" id="search" type="text" placeholder="🔍 Pesquisar livro ou autor..." oninput="filtrar()">
+    <button class="search-btn" onclick="filtrar()">Pesquisar</button>
+  </div>
+</div>
+
+<div class="cats-filter">
+  <div class="cat-btn active" onclick="filtrarCat('todos',this)">✨ Todos</div>
+  <div class="cat-btn" onclick="filtrarCat('autoajuda',this)">🌟 Autoajuda</div>
+  <div class="cat-btn" onclick="filtrarCat('financas',this)">💰 Finanças</div>
+  <div class="cat-btn" onclick="filtrarCat('negocios',this)">🚀 Negócios</div>
+  <div class="cat-btn" onclick="filtrarCat('romance',this)">❤️ Romance</div>
+  <div class="cat-btn" onclick="filtrarCat('psicologia',this)">🧠 Psicologia</div>
+  <div class="cat-btn" onclick="filtrarCat('espiritualidade',this)">🌿 Espiritualidade</div>
+  <div class="cat-btn" onclick="filtrarCat('classicos',this)">📖 Clássicos</div>
+</div>
+
+<div class="lib-grid" id="lib-grid"></div>
+
+<div class="bottom-nav">
+  <div class="bnav-item" onclick="location.href='livrariacriart.html'"><div class="bnav-ic">🏠</div><div class="bnav-lb">Início</div></div>
+  <div class="bnav-item"><div class="bnav-ic" style="color:var(--pk)">📚</div><div class="bnav-lb" style="color:var(--pk)">Biblioteca</div></div>
+  <div class="bnav-item" onclick="location.href='quiz.html'"><div class="bnav-ic">🧠</div><div class="bnav-lb">Quiz</div></div>
+  <div class="bnav-item" onclick="location.href='cartas.html'"><div class="bnav-ic">💌</div><div class="bnav-lb">Cartas</div></div>
+  <div class="bnav-item" onclick="location.href='perfil.html'"><div class="bnav-ic">👤</div><div class="bnav-lb">Perfil</div></div>
+</div>
+
+<script>
+const livros=[
+  {e:"📖",c:"#fce4f3",t:"O Poder do Hábito",a:"Charles Duhigg",cat:"autoajuda",b:"🔥 Top"},
+  {e:"💡",c:"#fef9c3",t:"Pai Rico, Pai Pobre",a:"Robert Kiyosaki",cat:"financas",b:"⭐ Mais lido"},
+  {e:"🚀",c:"#dbeafe",t:"De Zero a Um",a:"Peter Thiel",cat:"negocios"},
+  {e:"❤️",c:"#fce4f3",t:"A Culpa É das Estrelas",a:"John Green",cat:"romance"},
+  {e:"🧠",c:"#ede9fe",t:"Mindset",a:"Carol Dweck",cat:"psicologia",b:"💡 Essencial"},
+  {e:"🌿",c:"#dcfce7",t:"O Alquimista",a:"Paulo Coelho",cat:"espiritualidade",b:"🌟 Clássico"},
+  {e:"💪",c:"#fce4f3",t:"Garra",a:"Angela Duckworth",cat:"autoajuda"},
+  {e:"💰",c:"#fef9c3",t:"A Psicologia Financeira",a:"Morgan Housel",cat:"financas"},
+  {e:"🌸",c:"#fce4f3",t:"Becoming",a:"Michelle Obama",cat:"autoajuda",b:"🦋 Favorito"},
+  {e:"🧘",c:"#dcfce7",t:"O Poder do Agora",a:"Eckhart Tolle",cat:"espiritualidade"},
+  {e:"📊",c:"#dbeafe",t:"A Startup Enxuta",a:"Eric Ries",cat:"negocios"},
+  {e:"💔",c:"#fce4f3",t:"Tudo se Ilumina",a:"Jonathan Safran Foer",cat:"romance"},
+  {e:"🌙",c:"#ede9fe",t:"Siddhartha",a:"Hermann Hesse",cat:"espiritualidade"},
+  {e:"🎯",c:"#fef9c3",t:"Deep Work",a:"Cal Newport",cat:"autoajuda"},
+  {e:"📝",c:"#fce4f3",t:"Orgulho e Preconceito",a:"Jane Austen",cat:"classicos",b:"📖 Clássico"},
+  {e:"🔥",c:"#dbeafe",t:"Sapiens",a:"Yuval Noah Harari",cat:"psicologia",b:"🔥 Viral"},
+  {e:"🌺",c:"#fce4f3",t:"Mulheres que Correm com os Lobos",a:"Clarissa Pinkola",cat:"autoajuda"},
+  {e:"💎",c:"#fef9c3",t:"O Homem Mais Rico da Babilónia",a:"George Clason",cat:"financas"},
+  {e:"🌊",c:"#dcfce7",t:"Ikigai",a:"Héctor García",cat:"espiritualidade"},
+  {e:"📚",c:"#ede9fe",t:"Como Fazer Amigos",a:"Dale Carnegie",cat:"psicologia"},
+  {e:"✨",c:"#fce4f3",t:"A Coragem de Ser Imperfeito",a:"Brené Brown",cat:"autoajuda"},
+  {e:"🏆",c:"#fef9c3",t:"Os Segredos da Mente Milionária",a:"T. Harv Eker",cat:"financas"},
+  {e:"🌿",c:"#dcfce7",t:"Pequeno Príncipe",a:"Antoine de Saint-Exupéry",cat:"classicos",b:"💗 Atemporal"},
+  {e:"🚀",c:"#dbeafe",t:"O Negócio do Século XXI",a:"Robert Kiyosaki",cat:"negocios"},
+  {e:"💫",c:"#fce4f3",t:"Dom Casmurro",a:"Machado de Assis",cat:"classicos"},
+  {e:"🎭",c:"#ede9fe",t:"Inteligência Emocional",a:"Daniel Goleman",cat:"psicologia"},
+  {e:"🌸",c:"#fce4f3",t:"Lean In",a:"Sheryl Sandberg",cat:"autoajuda"},
+  {e:"💸",c:"#fef9c3",t:"Dinheiro — Master the Game",a:"Tony Robbins",cat:"financas"},
+  {e:"🌟",c:"#dcfce7",t:"A Arte de Ser Feliz",a:"Arthur Schopenhauer",cat:"espiritualidade"},
+  {e:"📱",c:"#dbeafe",t:"A Bíblia do Marketing Digital",a:"Cláudio Torres",cat:"negocios"},
+];
+
+let catActual='todos',favs=JSON.parse(localStorage.getItem('favs')||'[]');
+
+function renderLivros(lista){
+  const g=document.getElementById('lib-grid');
+  if(!lista.length){g.innerHTML='<div class="no-results">🔍 Nenhum livro encontrado.</div>';return;}
+  g.innerHTML=lista.map(l=>`
+    <div class="book-card">
+      <div class="book-cover" style="background:${l.c}">
+        <span>${l.e}</span>
+        ${l.b?`<div class="book-badge">${l.b}</div>`:''}
+      </div>
+      <div class="book-info">
+        <div class="book-cat">${l.cat}</div>
+        <div class="book-title">${l.t}</div>
+        <div class="book-author">${l.a}</div>
+        <div class="book-free">✓ Gratuito</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-ler">📖 Ler</button>
+        <button class="btn-fav ${favs.includes(l.t)?'saved':''}" onclick="toggleFav('${l.t}',this)">${favs.includes(l.t)?'❤️':'♡'}</button>
+      </div>
+    </div>`).join('');
+}
+
+function filtrar(){
+  const q=document.getElementById('search').value.toLowerCase();
+  const lista=livros.filter(l=>(catActual==='todos'||l.cat===catActual)&&(l.t.toLowerCase().includes(q)||l.a.toLowerCase().includes(q)));
+  renderLivros(lista);
+}
+
+function filtrarCat(cat,el){
+  catActual=cat;
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  filtrar();
+}
+
+function toggleFav(titulo,btn){
+  if(favs.includes(titulo)){favs=favs.filter(f=>f!==titulo);btn.textContent='♡';btn.classList.remove('saved');}
+  else{favs.push(titulo);btn.textContent='❤️';btn.classList.add('saved');}
+  localStorage.setItem('favs',JSON.stringify(favs));
+}
+
+renderLivros(livros);
+</script>
+</body>
+</html>
