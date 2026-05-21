@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Emocional — LIVRARIACRIART</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
+:root{--pk:#f542a1;--pk2:#fce4f3;--pk3:#c2186b;--dk:#0d0520}
+body{background:var(--dk);min-height:100vh}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(245,66,161,0.3);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px;backdrop-filter:blur(10px)}
+.logo{font-size:16px;font-weight:700;color:var(--pk)}.logo-sub{font-size:9px;color:#9a7090;letter-spacing:2px}
+.nav-links{display:flex;gap:16px}.nav-links a{font-size:12px;color:#c896b0;text-decoration:none}.nav-links a.active,.nav-links a:hover{color:var(--pk);font-weight:700}
+.nav-btn{background:var(--pk);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-size:12px;cursor:pointer}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}.hamburger span{width:22px;height:2px;background:var(--pk);border-radius:2px;display:block}
+.mob-menu{display:none;flex-direction:column;background:#1a0a2e;border-bottom:1px solid rgba(245,66,161,0.3)}.mob-menu a{padding:12px 24px;font-size:13px;color:#c896b0;text-decoration:none;border-bottom:1px solid rgba(245,66,161,0.1)}
+
+.page{max-width:680px;margin:0 auto;padding:36px 24px 80px}
+.intro{text-align:center;margin-bottom:36px}
+.intro-badge{display:inline-block;background:rgba(245,66,161,0.2);color:var(--pk);border:1px solid rgba(245,66,161,0.4);border-radius:20px;padding:6px 16px;font-size:12px;margin-bottom:16px}
+.intro h1{font-size:26px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.3}
+.intro h1 span{color:var(--pk)}
+.intro p{font-size:13px;color:#9a7090;line-height:1.6}
+
+.quiz-list{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.quiz-item{background:rgba(255,255,255,0.04);border:1px solid rgba(245,66,161,0.25);border-radius:16px;padding:20px;cursor:pointer;transition:all .2s}
+.quiz-item:hover{background:rgba(245,66,161,0.1);border-color:var(--pk)}
+.qi-header{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.qi-emoji{font-size:26px}
+.qi-title{font-size:14px;font-weight:700;color:#e4b8d4}
+.qi-desc{font-size:12px;color:#9a7090;line-height:1.5;margin-left:38px}
+.qi-tag{display:inline-block;background:rgba(245,66,161,0.15);color:var(--pk);font-size:10px;padding:2px 8px;border-radius:10px;margin-top:6px;margin-left:38px}
+
+.quiz-container{display:none;background:rgba(255,255,255,0.04);border:1px solid rgba(245,66,161,0.25);border-radius:20px;padding:24px}
+.quiz-container.show{display:block}
+.quiz-name-lbl{font-size:13px;color:var(--pk);font-weight:700;margin-bottom:10px}
+.prog-bar{background:rgba(245,66,161,0.15);border-radius:10px;height:5px;margin-bottom:6px}
+.prog-fill{background:var(--pk);height:5px;border-radius:10px;transition:width .4s}
+.prog-txt{font-size:11px;color:#9a7090;margin-bottom:18px}
+.q-text{font-size:16px;color:#fff;font-weight:600;margin-bottom:18px;line-height:1.5}
+.q-opts{display:flex;flex-direction:column;gap:8px}
+.q-opt{background:rgba(255,255,255,0.05);border:1px solid rgba(245,66,161,0.25);border-radius:12px;padding:13px 16px;font-size:13px;color:#e4b8d4;cursor:pointer;text-align:left;transition:all .2s}
+.q-opt:hover{background:rgba(245,66,161,0.2);border-color:var(--pk)}
+.q-opt.sel{background:rgba(245,66,161,0.25);border-color:var(--pk)}
+
+.resultado{display:none;text-align:center}
+.resultado.show{display:block}
+.res-emoji{font-size:56px;margin-bottom:14px}
+.res-titulo{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
+.res-sub{font-size:13px;color:#c896b0;margin-bottom:20px;line-height:1.6}
+.res-frase{background:rgba(245,66,161,0.1);border-left:3px solid var(--pk);padding:14px 16px;border-radius:0 12px 12px 0;font-size:13px;color:#c896b0;font-style:italic;margin-bottom:20px;line-height:1.6;text-align:left}
+.res-livros{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.res-livro{background:rgba(245,66,161,0.1);border:1px solid rgba(245,66,161,0.2);border-radius:12px;padding:14px;text-align:left}
+.res-livro h4{font-size:13px;font-weight:700;color:#f9a8d4;margin-bottom:4px}
+.res-livro p{font-size:11px;color:#9a7090;line-height:1.4}
+.btn-refazer{background:var(--pk);color:#fff;border:none;border-radius:22px;padding:11px 24px;font-size:13px;cursor:pointer;font-weight:700;margin-right:8px}
+.btn-outro{background:transparent;color:var(--pk);border:1.5px solid var(--pk);border-radius:22px;padding:9px 20px;font-size:12px;cursor:pointer}
+
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:#1a0a2e;border-top:1px solid rgba(245,66,161,0.3);padding:8px 0 12px;z-index:100;justify-content:space-around}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;min-width:44px}
+.bnav-ic{font-size:20px}.bnav-lb{font-size:9px;color:#9a7090;font-weight:600}
+
+@media(max-width:768px){
+  .nav-links{display:none}.hamburger{display:flex}
+  .page{padding:24px 16px 80px}.intro h1{font-size:21px}
+  .bottom-nav{display:flex};body{padding-bottom:70px}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div><div class="logo">🦋 LIVRARIACRIART</div><div class="logo-sub">Ler, sonhar e crescer</div></div>
+  <div class="nav-links">
+    <a href="livrariacriart.html">Início</a><a href="biblioteca.html">Biblioteca</a>
+    <a href="quiz.html" class="active">Quiz</a><a href="cartas.html">Cartas</a><a href="perfil.html">Perfil</a>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <button class="nav-btn">🦋 Entrar</button>
+    <div class="hamburger" onclick="document.getElementById('mm').style.display=document.getElementById('mm').style.display==='flex'?'none':'flex';document.getElementById('mm').style.flexDirection='column'"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mob-menu" id="mm">
+  <a href="livrariacriart.html">🏠 Início</a><a href="biblioteca.html">📚 Biblioteca</a>
+  <a href="quiz.html">🧠 Quiz</a><a href="cartas.html">💌 Cartas</a><a href="perfil.html">👤 Perfil</a>
+</div>
+
+<div class="page">
+  <div class="intro">
+    <div class="intro-badge">🧠 Teste Emocional</div>
+    <h1>Qual livro a tua <span>alma precisa</span> agora?</h1>
+    <p>Escolhe um quiz e descobre os livros perfeitos para o teu momento</p>
+  </div>
+
+  <div class="quiz-list" id="quiz-list">
+    <div class="quiz-item" onclick="iniciar('emocional')">
+      <div class="qi-header"><span class="qi-emoji">💗</span><span class="qi-title">Como está o teu coração?</span></div>
+      <div class="qi-desc">5 perguntas sobre o teu estado emocional — descobrimos os livros certos para ti.</div>
+      <span class="qi-tag">5 perguntas · 2 min</span>
+    </div>
+    <div class="quiz-item" onclick="iniciar('financeiro')">
+      <div class="qi-header"><span class="qi-emoji">💸</span><span class="qi-title">Qual é o teu perfil financeiro?</span></div>
+      <div class="qi-desc">Descobre onde estás na tua jornada financeira e os livros que vão mudar tudo.</div>
+      <span class="qi-tag">5 perguntas · 2 min</span>
+    </div>
+    <div class="quiz-item" onclick="iniciar('proposito')">
+      <div class="qi-header"><span class="qi-emoji">🌟</span><span class="qi-title">Estás a viver com propósito?</span></div>
+      <div class="qi-desc">Descobre se estás no caminho certo e o que os livros podem mudar na tua vida.</div>
+      <span class="qi-tag">5 perguntas · 2 min</span>
+    </div>
+    <div class="quiz-item" onclick="iniciar('autoestima')">
+      <div class="qi-header"><span class="qi-emoji">🦋</span><span class="qi-title">Como está a tua autoestima?</span></div>
+      <div class="qi-desc">Um quiz gentil para perceber como te relacionas contigo mesma.</div>
+      <span class="qi-tag">5 perguntas · 2 min</span>
+    </div>
+  </div>
+
+  <div class="quiz-container" id="qbox">
+    <div class="quiz-name-lbl" id="qnome"></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog"></div></div>
+    <div class="prog-txt" id="prog-txt"></div>
+    <div class="q-text" id="qtxt"></div>
+    <div class="q-opts" id="qopts"></div>
+  </div>
+
+  <div class="resultado" id="resultado">
+    <div class="res-emoji" id="remoji"></div>
+    <div class="res-titulo" id="rtitulo"></div>
+    <div class="res-sub" id="rsub"></div>
+    <div class="res-frase" id="rfrase"></div>
+    <div class="res-livros" id="rlivros"></div>
+    <button class="btn-refazer" onclick="refazer()">🔄 Refazer</button>
+    <button class="btn-outro" onclick="outroQuiz()">Ver outros quizzes</button>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <div class="bnav-item" onclick="location.href='livrariacriart.html'"><div class="bnav-ic">🏠</div><div class="bnav-lb">Início</div></div>
+  <div class="bnav-item" onclick="location.href='biblioteca.html'"><div class="bnav-ic">📚</div><div class="bnav-lb">Biblioteca</div></div>
+  <div class="bnav-item"><div class="bnav-ic" style="color:var(--pk)">🧠</div><div class="bnav-lb" style="color:var(--pk)">Quiz</div></div>
+  <div class="bnav-item" onclick="location.href='cartas.html'"><div class="bnav-ic">💌</div><div class="bnav-lb">Cartas</div></div>
+  <div class="bnav-item" onclick="location.href='perfil.html'"><div class="bnav-ic">👤</div><div class="bnav-lb">Perfil</div></div>
+</div>
+
+<script>
+const Q={
+  emocional:{nome:"💗 Como está o teu coração?",
+    ps:[
+      {q:"Como te tens sentido ao acordar esta semana?",o:["Com peso no peito","Com energia mas perdida","Ansiosa e agitada","Vazia e sem rumo"]},
+      {q:"O que mais te faz falta agora?",o:["Sentir que não estou sozinha","Uma nova perspectiva","Calma e silêncio interior","Motivação para agir"]},
+      {q:"Como te relacionas com os teus erros?",o:["Carrego-os com culpa","Aprendo e sigo","Fico paralisada","Ignoro e finjo"]},
+      {q:"Quando foi a última vez que te sentiste bem?",o:["Não me lembro","Há poucos dias","Foi há muito tempo","Nunca me sinto bem"]},
+      {q:"O que mudarias agora se pudesses?",o:["A relação comigo mesma","A minha situação financeira","Os meus relacionamentos","O meu propósito"]}
+    ],
+    rs:[
+      {e:"🌧️",t:"Precisas de cura e acolhimento",s:"A tua alma está cansada e merece atenção. Estes livros foram escritos para te abraçar.",f:"\"Curar não é esquecer. É aprender a carregar com leveza.\"",l:[{t:"O Dom das Imperfeições",d:"Brené Brown — Para aprender a amar-te com as tuas imperfeições"},{t:"Tudo se Ilumina",d:"Jonathan Safran Foer — Uma história de cura e recomeço"}]},
+      {e:"🌱",t:"Estás pronta para crescer",s:"Tens energia mas precisas de direção. Estes livros vão apontar o caminho.",f:"\"O crescimento começa quando paras de fingir que está tudo bem.\"",l:[{t:"Mindset",d:"Carol Dweck — Muda a forma como vês os desafios"},{t:"Garra",d:"Angela Duckworth — A ciência da persistência"}]},
+      {e:"😮‍💨",t:"Precisas de paz interior",s:"A tua mente está agitada. Estes livros vão trazer-te de volta ao centro.",f:"\"A paz não é a ausência de caos. É encontrares-te dentro dele.\"",l:[{t:"O Poder do Agora",d:"Eckhart Tolle — Viver o presente com leveza"},{t:"Ikigai",d:"Héctor García — O segredo para uma vida com sentido"}]},
+      {e:"🔥",t:"Precisas de despertar",s:"Há algo dentro de ti que quer sair. Estes livros vão acender essa chama.",f:"\"Não estás vazia. Estás em espera. Há diferença.\"",l:[{t:"O Alquimista",d:"Paulo Coelho — Para reencontrar o teu propósito"},{t:"Becoming",d:"Michelle Obama — Uma história de transformação"}]}
+    ]},
+  financeiro:{nome:"💸 Qual é o teu perfil financeiro?",
+    ps:[
+      {q:"Como te sentes quando pensas em dinheiro?",o:["Com ansiedade e medo","Indiferente","Motivada a aprender","Frustrada por nunca chegar"]},
+      {q:"Como está a tua poupança actualmente?",o:["Não tenho poupanças","Tenho pouco","Poupo alguma coisa","Invisto regularmente"]},
+      {q:"Quando recebes dinheiro, o que fazes?",o:["Pago contas e some","Gasto no que gosto","Separo para poupar","Tenho um plano claro"]},
+      {q:"O que te impede de ter mais dinheiro?",o:["As minhas crenças","O salário baixo","Falta de conhecimento","Não sei"]},
+      {q:"Qual o teu objectivo financeiro?",o:["Sair das dívidas","Ter reserva de emergência","Criar renda extra","Ter liberdade financeira"]}
+    ],
+    rs:[
+      {e:"💸",t:"Estás no início da jornada",s:"Não te preocupes — toda a gente começa do zero. Estes livros vão mudar a tua relação com o dinheiro.",f:"\"Não é sobre quanto ganhas. É sobre o que fazes com o que tens.\"",l:[{t:"Pai Rico, Pai Pobre",d:"Robert Kiyosaki — O clássico que muda mentalidades financeiras"},{t:"O Homem Mais Rico da Babilónia",d:"George Clason — Princípios atemporais sobre dinheiro"}]},
+      {e:"🌱",t:"Estás a despertar financeiramente",s:"Já tens consciência, agora precisas de estratégia.",f:"\"Consciência sem acção é só um sonho bonito.\"",l:[{t:"A Psicologia Financeira",d:"Morgan Housel — Como o comportamento define o sucesso"},{t:"Os Segredos da Mente Milionária",d:"T. Harv Eker — Muda os teus padrões mentais"}]},
+      {e:"📈",t:"Estás no caminho certo",s:"Tens bons hábitos. Agora é hora de acelerar.",f:"\"Bons hábitos financeiros hoje criam liberdade amanhã.\"",l:[{t:"Dinheiro — Master the Game",d:"Tony Robbins — Estratégias dos melhores investidores"},{t:"O Investidor Inteligente",d:"Benjamin Graham — A bíblia do investimento"}]},
+      {e:"🏆",t:"És uma guerreira financeira",s:"Tens conhecimento e disciplina. Estes livros vão refinar a tua estratégia.",f:"\"A liberdade financeira não é um destino. É um estilo de vida.\"",l:[{t:"Princípios",d:"Ray Dalio — As lições do maior gestor de fundos do mundo"},{t:"Pensar e Enriquecer",d:"Napoleon Hill — Os princípios da mentalidade de riqueza"}]}
+    ]},
+  proposito:{nome:"🌟 Estás a viver com propósito?",
+    ps:[
+      {q:"Quando acordas, como te sentes em relação ao teu dia?",o:["Com vontade de ficar na cama","Indiferente","Com alguma motivação","Animada e com propósito"]},
+      {q:"Sabes claramente o que queres para a tua vida?",o:["Não faço ideia","Tenho uma vaga noção","Tenho alguns objectivos","Tenho um caminho claro"]},
+      {q:"Como te sentes no teu trabalho ou estudos?",o:["Completamente perdida","Faço por obrigação","Gosto de algumas partes","Estou no lugar certo"]},
+      {q:"Quando ajudas alguém, como te sentes?",o:["Raramente ajudo","Ajudo mas não penso muito","Sinto satisfação genuína","É para isso que existo"]},
+      {q:"O que dirias a ti mesma daqui a 10 anos?",o:["Espero não ter os mesmos problemas","Quero ter mudado algo","Quero ter crescido muito","Quero estar onde sonhei"]}
+    ],
+    rs:[
+      {e:"🌑",t:"Estás à procura do teu caminho",s:"É normal sentires-te perdida. Estes livros vão ajudar-te a encontrar o teu norte.",f:"\"Não precisas de ter tudo claro. Precisas de dar um passo.\"",l:[{t:"O Alquimista",d:"Paulo Coelho — A jornada de quem procura o seu destino"},{t:"Encontra o Teu Porquê",d:"Simon Sinek — Como descobrir o propósito que te move"}]},
+      {e:"🌤️",t:"Estás a despertar para o teu propósito",s:"Já sentes algo a chamar por ti. Estes livros vão amplificar esse chamado.",f:"\"O propósito não se encontra. Constrói-se todos os dias.\"",l:[{t:"Ikigai",d:"Héctor García — O equilíbrio entre o que amas e o que o mundo precisa"},{t:"A Arte de Ser Feliz",d:"Schopenhauer — Filosofia prática para uma vida com sentido"}]},
+      {e:"🌟",t:"Estás no caminho certo",s:"Tens consciência do que queres. Estes livros vão aprofundar a tua jornada.",f:"\"Viver com propósito é a coisa mais corajosa que podes fazer.\"",l:[{t:"Poder Sem Limites",d:"Anthony Robbins — Estratégias para uma vida extraordinária"},{t:"A Startup de Você",d:"Reid Hoffman — Como gerir a tua carreira com intencionalidade"}]},
+      {e:"✨",t:"Vives com propósito genuíno",s:"Estás alinhada com quem és. Estes livros vão elevar ainda mais a tua jornada.",f:"\"Quem sabe porque vive, suporta qualquer como.\"",l:[{t:"Homo Deus",d:"Yuval Harari — O futuro da humanidade e o teu papel nele"},{t:"Principles",d:"Ray Dalio — Como criar princípios que guiam uma vida extraordinária"}]}
+    ]},
+  autoestima:{nome:"🦋 Como está a tua autoestima?",
+    ps:[
+      {q:"Quando alguém te elogia, o que sentes?",o:["Desconforto, não acredito","Agrado mas rapidamente esqueço","Gratidão genuína","Sei o meu valor"]},
+      {q:"Como falas contigo quando cometes um erro?",o:["Com muita dureza","Com alguma culpa","Com compreensão","Aprendo e sigo"]},
+      {q:"Consegues dizer não sem te sentires culpada?",o:["Nunca consigo","Raramente consigo","Por vezes consigo","Sim, tenho os meus limites"]},
+      {q:"Como te sentes no teu corpo?",o:["Muito insatisfeita","Há coisas que não gosto","Aceito-me maioritariamente","Gosto de mim como sou"]},
+      {q:"Quando te comparas com outras mulheres, o que sentes?",o:["Inferioridade e inveja","Insegurança às vezes","Inspiração sem me diminuir","Não me comparo"]}
+    ],
+    rs:[
+      {e:"💔",t:"A tua autoestima precisa de cuidado",s:"Mereces o amor que dás aos outros. Estes livros vão começar essa cura.",f:"\"Não és menos por estares partida. O ouro entra pelas fissuras.\"",l:[{t:"Mulheres que Correm com os Lobos",d:"Clarissa Pinkola — Reencontrar a tua natureza poderosa"},{t:"O Dom das Imperfeições",d:"Brené Brown — Abraçar quem és com coragem"}]},
+      {e:"🌱",t:"Estás a crescer na tua autoestima",s:"Já percebes o teu valor, mas ainda há caminho. Estes livros vão acelerar esse crescimento.",f:"\"A autoestima não é vaidade. É saber que mereces ocupar espaço no mundo.\"",l:[{t:"A Coragem de Ser Imperfeito",d:"Brené Brown — Viver plenamente sem a armadura da perfeição"},{t:"Lean In",d:"Sheryl Sandberg — Para mulheres que querem mais"}]},
+      {e:"🌸",t:"Tens uma autoestima saudável",s:"Conheces o teu valor. Estes livros vão elevar ainda mais a tua força interior.",f:"\"Mulheres que conhecem o seu valor não pedem espaço — ocupam-no.\"",l:[{t:"Becoming",d:"Michelle Obama — Identidade, força e propósito"},{t:"Garra",d:"Angela Duckworth — A ciência da persistência e do talento"}]},
+      {e:"👑",t:"Tens uma autoestima poderosa",s:"Sabes quem és e não te pedes desculpa por isso.",f:"\"Uma mulher que conhece o seu poder transforma tudo à sua volta.\"",l:[{t:"Sapiens",d:"Yuval Harari — Compreender a humanidade para compreender o teu lugar"},{t:"Principles",d:"Ray Dalio — Os princípios das pessoas mais poderosas do mundo"}]}
+    ]}
+};
+
+let atual=null,pi=0,resps=[];
+
+function iniciar(tipo){
+  atual=tipo;pi=0;resps=[];
+  document.getElementById('quiz-list').style.display='none';
+  document.getElementById('resultado').classList.remove('show');
+  document.getElementById('qbox').classList.add('show');
+  document.getElementById('qnome').textContent=Q[tipo].nome;
+  mostrar();
+}
+
+function mostrar(){
+  const total=Q[atual].ps.length;
+  document.getElementById('prog').style.width=(pi/total*100)+'%';
+  document.getElementById('prog-txt').textContent=`Pergunta ${pi+1} de ${total}`;
+  const p=Q[atual].ps[pi];
+  document.getElementById('qtxt').textContent=p.q;
+  document.getElementById('qopts').innerHTML=p.o.map((o,i)=>
+    `<button class="q-opt" onclick="resp(${i})">${o}</button>`).join('');
+}
+
+function resp(i){
+  resps.push(i);
+  document.querySelectorAll('.q-opt').forEach(o=>o.style.pointerEvents='none');
+  document.querySelectorAll('.q-opt')[i].classList.add('sel');
+  setTimeout(()=>{pi++;pi<Q[atual].ps.length?mostrar():mostrarRes();},400);
+}
+
+function mostrarRes(){
+  document.getElementById('prog').style.width='100%';
+  setTimeout(()=>{
+    document.getElementById('qbox').classList.remove('show');
+    const rs=Q[atual].rs;
+    const idx=Math.floor(resps.reduce((a,b)=>a+b,0)/resps.length)%rs.length;
+    const r=rs[idx];
+    document.getElementById('remoji').textContent=r.e;
+    document.getElementById('rtitulo').textContent=r.t;
+    document.getElementById('rsub').textContent=r.s;
+    document.getElementById('rfrase').textContent=r.f;
+    document.getElementById('rlivros').innerHTML=r.l.map(l=>
+      `<div class="res-livro"><h4>📖 ${l.t}</h4><p>${l.d}</p></div>`).join('');
+    document.getElementById('resultado').classList.add('show');
+  },300);
+}
+
+function refazer(){iniciar(atual);}
+function outroQuiz(){
+  document.getElementById('resultado').classList.remove('show');
+  document.getElementById('quiz-list').style.display='flex';
+  document.getElementById('quiz-list').style.flexDirection='column';
+}
+</script>
+</body>
+</html>
