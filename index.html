@@ -585,6 +585,7 @@ const bksE=[
 {t:"LUZ",c:"#e0349a",h:115,l:"biblioteca.html"},
 {t:"PAZ",c:"#f877bc",h:85,l:"biblioteca.html"}
 ];
+  d.innerHTML=`<a href="${b.l}" style="color:white;text-decoration:none">${b.t}</a>`;
 // SENTIMENTOS
 const fd={triste:{t:"🌧️ Para quem está triste — abraço em forma de livro",l:["Tudo se Ilumina","A Cabana","O Dom das Imperfeições","Para Sempre Alice"]},motivacao:{t:"🔥 Para te levantar e ir em frente!",l:["Faça Acontecer","Garra — Angela Duckworth","Mindset — Carol Dweck","Os Segredos da Mente Milionária"]},financas:{t:"💸 Para transformar a tua vida financeira",l:["Pai Rico, Pai Pobre","O Homem Mais Rico da Babilónia","A Psicologia Financeira","Dinheiro — Tony Robbins"]},recomeco:{t:"🌱 Para quem está a recomeçar com coragem",l:["Becoming — Michelle Obama","A Cor Púrpura","Um Novo Mundo","A Coragem de Ser Imperfeito"]},paz:{t:"🌙 Para encontrar paz e silêncio interior",l:["O Poder do Agora","Siddhartha","Ikigai","A Arte da Leveza"]},perdida:{t:"🌪️ Para quem se sente sem rumo",l:["O Alquimista","Eat Pray Love","A Vida que Escolhemos","Encontra o Teu Porquê"]}};
 function sentimento(t,el){document.querySelectorAll('.feel').forEach(f=>f.classList.remove('active'));el.classList.add('active');const d=fd[t];document.getElementById('feel-tit').textContent=d.t;document.getElementById('mini-bks').innerHTML=d.l.map(l=>`<div class="mbk">📖 ${l}</div>`).join('');document.getElementById('feel-res').classList.add('show');}
